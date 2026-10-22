@@ -26,6 +26,23 @@ export interface AboutContent {
   points: string[];
 }
 
+export interface PrincipleItem {
+  t: string;
+  d: string;
+}
+
+export interface TentangContent {
+  pageTitle: string;
+  pageCrumb: string;
+  eyebrow: string;
+  title: string;
+  body: string;
+  vision: string;
+  mission: string;
+  principlesTitle: string;
+  principles: PrincipleItem[];
+}
+
 export interface ServiceItem {
   name: string;
   desc: string;
@@ -57,6 +74,7 @@ export interface SiteContent {
   hero: HeroContent;
   trust: TrustItem[];
   about: AboutContent;
+  tentang: TentangContent;
   services: ServiceItem[];
   serviceFees: FeeItem[];
   sparepartPrices: PartItem[];
@@ -96,6 +114,22 @@ export const defaultContent: SiteContent = {
       "Diagnosis dan estimasi dijelaskan sebelum pengerjaan",
       "Pilihan kualitas sparepart yang terbuka",
       "Komunikasi selama proses servis",
+    ],
+  },
+  tentang: {
+    pageTitle: "Tentang iCare",
+    pageCrumb: "Tentang",
+    eyebrow: "Profil",
+    title: "Layanan servis independen dari Putra Mahkota Group",
+    body: "iCare Service adalah layanan servis independen yang berfokus pada iPhone dan produk Apple lainnya sesuai kemampuan layanan. Brand iCare dikembangkan dari Putra Mahkota Group yang telah berdiri sejak 1998.",
+    vision: "Menjadi tempat servis perangkat yang dipercaya karena kejelasan dan kualitas layanannya.",
+    mission: "Memberikan informasi yang terbuka, penanganan yang cermat, dan dukungan setelah servis.",
+    principlesTitle: "Prinsip Layanan Kami",
+    principles: [
+      { t: "Transparansi", d: "Pilihan penanganan, kualitas sparepart, dan biaya dijelaskan sebelum pengerjaan." },
+      { t: "Penanganan Cermat", d: "Setiap perangkat ditangani dengan teliti dan hati-hati." },
+      { t: "Komunikasi", d: "Kami memberi kabar selama proses servis berlangsung." },
+      { t: "Dukungan Pascaservis", d: "Bantuan setelah servis sesuai ketentuan yang berlaku." },
     ],
   },
   services: [

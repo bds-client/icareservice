@@ -170,6 +170,34 @@ function AboutForm({ content, save }: { content: SiteContent; save: ReturnType<t
   );
 }
 
+function TentangForm({ content, save }: { content: SiteContent; save: ReturnType<typeof useSaver> }) {
+  const [v, setV] = useState(content.tentang);
+  return (
+    <SectionCard title="Halaman Tentang" onSave={() => save("tentang", v)}>
+      <Field label="Judul halaman" value={v.pageTitle} onChange={(x) => setV({ ...v, pageTitle: x })} />
+      <Field label="Teks breadcrumb" value={v.pageCrumb} onChange={(x) => setV({ ...v, pageCrumb: x })} />
+      <Field label="Label kecil di atas judul" value={v.eyebrow} onChange={(x) => setV({ ...v, eyebrow: x })} />
+      <Field label="Judul profil" value={v.title} onChange={(x) => setV({ ...v, title: x })} multiline />
+      <Field label="Isi profil" value={v.body} onChange={(x) => setV({ ...v, body: x })} multiline />
+      <Field label="Visi" value={v.vision} onChange={(x) => setV({ ...v, vision: x })} multiline />
+      <Field label="Misi" value={v.mission} onChange={(x) => setV({ ...v, mission: x })} multiline />
+      <Field label="Judul bagian prinsip" value={v.principlesTitle} onChange={(x) => setV({ ...v, principlesTitle: x })} />
+      <div className="space-y-2">
+        <Label>Prinsip layanan</Label>
+        <ListEditor
+          items={v.principles}
+          fields={[
+            { key: "t", label: "Judul" },
+            { key: "d", label: "Deskripsi", multiline: true },
+          ]}
+          onChange={(x) => setV({ ...v, principles: x as unknown as typeof v.principles })}
+          addLabel="Tambah prinsip"
+        />
+      </div>
+    </SectionCard>
+  );
+}
+
 function ServicesForm({ content, save }: { content: SiteContent; save: ReturnType<typeof useSaver> }) {
   const [v, setV] = useState(content.services);
   return (
@@ -381,6 +409,7 @@ function Admin() {
           <TabsList className="flex h-auto flex-wrap">
             <TabsTrigger value="umum">Umum</TabsTrigger>
             <TabsTrigger value="beranda">Beranda</TabsTrigger>
+            <TabsTrigger value="tentang">Tentang</TabsTrigger>
             <TabsTrigger value="layanan">Layanan</TabsTrigger>
             <TabsTrigger value="harga">Harga</TabsTrigger>
             <TabsTrigger value="cabang">Cabang</TabsTrigger>
@@ -399,6 +428,9 @@ function Admin() {
               <HeroForm content={content} save={save} />
               <TrustForm content={content} save={save} />
               <AboutForm content={content} save={save} />
+            </TabsContent>
+            <TabsContent value="tentang">
+              <TentangForm content={content} save={save} />
             </TabsContent>
             <TabsContent value="layanan">
               <ServicesForm content={content} save={save} />
