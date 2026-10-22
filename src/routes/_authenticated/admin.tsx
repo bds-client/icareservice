@@ -54,15 +54,15 @@ function Field({ label, value, onChange, multiline = false }: { label: string; v
   );
 }
 
-function ListEditor({
+function ListEditor<T extends object>({
   items,
   fields,
   onChange,
   addLabel,
 }: {
-  items: Record<string, string>[];
-  fields: { key: string; label: string; multiline?: boolean }[];
-  onChange: (items: Record<string, string>[]) => void;
+  items: T[];
+  fields: { key: keyof T & string; label: string; multiline?: boolean }[];
+  onChange: (items: T[]) => void;
   addLabel: string;
 }) {
   const update = (i: number, k: string, v: string) => {
@@ -83,7 +83,7 @@ function ListEditor({
             <Trash2 className="h-4 w-4" />
           </button>
           {fields.map((f) => (
-            <Field key={f.key} label={f.label} value={item[f.key]} multiline={f.multiline} onChange={(v) => update(i, f.key, v)} />
+            <Field key={f.key} label={f.label} value={(item as Record<string, string>)[f.key] ?? ""} multiline={f.multiline} onChange={(v) => update(i, f.key, v)} />
           ))}
         </div>
       ))}
