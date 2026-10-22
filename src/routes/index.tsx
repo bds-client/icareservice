@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, BadgeCheck, Eye, HandHeart, ShieldCheck, Wrench, MessagesSquare } from "lucide-react";
+import { ArrowUpRight, BadgeCheck, Eye, HandHeart, ShieldCheck, Wrench, type LucideIcon } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import about from "@/assets/about.jpg";
 import { SiteLayout, WaButton } from "@/components/SiteLayout";
 import { BranchCards, CtaBand, Eyebrow, ReviewSources, ServicesGrid } from "@/components/Sections";
+import { useSiteContent } from "@/lib/content-context";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -18,14 +19,10 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const trust = [
-  { icon: BadgeCheck, t: "Sejak 1998", d: "Bagian dari Putra Mahkota Group" },
-  { icon: Eye, t: "Transparan", d: "Pilihan kualitas dijelaskan terbuka" },
-  { icon: Wrench, t: "Cermat", d: "Penanganan perangkat dengan teliti" },
-  { icon: HandHeart, t: "Pascaservis", d: "Dukungan sesuai ketentuan" },
-];
+const trustIcons: LucideIcon[] = [BadgeCheck, Eye, Wrench, HandHeart];
 
 function Index() {
+  const { hero: h, trust, about: a, general } = useSiteContent();
   return (
     <SiteLayout>
       <section className="relative overflow-hidden">
@@ -33,8 +30,8 @@ function Index() {
         <div className="absolute inset-0 bg-hero-overlay" />
         <div className="relative mx-auto grid max-w-7xl gap-10 px-4 pb-24 pt-48 lg:grid-cols-[1.4fr_1fr] lg:items-end">
           <div className="text-ink-foreground">
-            <h1 className="text-5xl font-bold leading-[1.05] md:text-7xl">Servis iPhone dengan Pilihan yang Jelas dan Transparan</h1>
-            <p className="mt-6 max-w-xl text-lg opacity-80">iCare Service membantu Anda memahami pilihan penanganan, kualitas sparepart, dan biaya sebelum memutuskan servis.</p>
+            <h1 className="text-5xl font-bold leading-[1.05] md:text-7xl">{h.title}</h1>
+            <p className="mt-6 max-w-xl text-lg opacity-80">{h.subtitle}</p>
             <div className="mt-8 flex flex-wrap gap-4 border-t border-ink-foreground/20 pt-8">
               <WaButton />
               <Link to="/lokasi-kontak" className="inline-flex items-center gap-2 rounded-full border-2 border-ink-foreground/60 px-6 py-3 font-semibold transition hover:bg-ink-foreground hover:text-ink">
@@ -45,15 +42,15 @@ function Index() {
           <div className="grid grid-cols-2 gap-4 text-ink-foreground">
             <div className="glass col-span-2 rounded-2xl p-6">
               <p className="font-display text-xl font-semibold">2 Cabang di Denpasar</p>
-              <p className="mt-1 text-sm opacity-80">Jl. Teuku Umar No.199 & No.38 · Buka setiap hari 09.00–22.00 WITA</p>
+              <p className="mt-1 text-sm opacity-80">{h.branchesLine}</p>
             </div>
             <div className="glass rounded-2xl p-6 text-center">
-              <p className="font-display text-5xl font-bold text-primary">1998</p>
-              <p className="font-display text-lg">Berpengalaman</p>
+              <p className="font-display text-5xl font-bold text-primary">{h.stat1Value}</p>
+              <p className="font-display text-lg">{h.stat1Label}</p>
             </div>
             <div className="glass rounded-2xl p-6 text-center">
-              <p className="font-display text-5xl font-bold text-primary">7/7</p>
-              <p className="font-display text-lg">Hari Buka</p>
+              <p className="font-display text-5xl font-bold text-primary">{h.stat2Value}</p>
+              <p className="font-display text-lg">{h.stat2Label}</p>
             </div>
           </div>
         </div>
@@ -61,22 +58,25 @@ function Index() {
 
       <section className="mx-auto -mt-10 max-w-7xl px-4 relative z-10">
         <div className="grid gap-px overflow-hidden rounded-2xl bg-border shadow-xl sm:grid-cols-2 lg:grid-cols-4">
-          {trust.map(({ icon: I, t, d }) => (
-            <div key={t} className="flex gap-4 bg-card p-6">
-              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-accent text-primary"><I className="h-6 w-6" /></span>
-              <div><p className="font-display text-xl font-semibold">{t}</p><p className="text-sm text-muted-foreground">{d}</p></div>
-            </div>
-          ))}
+          {trust.map(({ t, d }, i) => {
+            const I = trustIcons[i % trustIcons.length] ?? BadgeCheck;
+            return (
+              <div key={t} className="flex gap-4 bg-card p-6">
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-accent text-primary"><I className="h-6 w-6" /></span>
+                <div><p className="font-display text-xl font-semibold">{t}</p><p className="text-sm text-muted-foreground">{d}</p></div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
       <section className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-24 lg:grid-cols-2">
         <div>
           <Eyebrow>Tentang Kami</Eyebrow>
-          <h2 className="mt-4 text-4xl font-bold md:text-5xl">Servis independen yang mengutamakan kejelasan</h2>
-          <p className="mt-5 text-muted-foreground">iCare Service berfokus pada iPhone dan produk Apple lainnya sesuai kemampuan layanan. Dikembangkan dari Putra Mahkota Group, kami menjelaskan setiap pilihan sebelum perangkat Anda dikerjakan.</p>
+          <h2 className="mt-4 text-4xl font-bold md:text-5xl">{a.title}</h2>
+          <p className="mt-5 text-muted-foreground">{a.body}</p>
           <ul className="mt-6 space-y-3">
-            {["Diagnosis dan estimasi dijelaskan sebelum pengerjaan", "Pilihan kualitas sparepart yang terbuka", "Komunikasi selama proses servis"].map((x) => (
+            {a.points.map((x) => (
               <li key={x} className="flex gap-3"><ShieldCheck className="h-5 w-5 text-primary" />{x}</li>
             ))}
           </ul>
@@ -106,7 +106,7 @@ function Index() {
       </section>
 
       <CtaBand />
-      <span className="sr-only"><MessagesSquare /></span>
+      <span className="sr-only">{general.hours}</span>
     </SiteLayout>
   );
 }

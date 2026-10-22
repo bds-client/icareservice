@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero, SiteLayout } from "@/components/SiteLayout";
-import { EMAIL } from "@/lib/site";
+import { useSiteContent } from "@/lib/content-context";
 
 export const Route = createFileRoute("/kebijakan-privasi")({
   head: () => ({
@@ -15,6 +15,7 @@ export const Route = createFileRoute("/kebijakan-privasi")({
 });
 
 function Privacy() {
+  const { general } = useSiteContent();
   return (
     <SiteLayout>
       <PageHero title="Kebijakan Privasi" crumb="Kebijakan Privasi" />
@@ -24,7 +25,7 @@ function Privacy() {
         <h2 className="text-2xl font-semibold text-foreground">Layanan pihak ketiga</h2>
         <p>Website ini menautkan ke WhatsApp dan Google Maps. Penggunaan layanan tersebut tunduk pada kebijakan privasi masing-masing penyedia. Jika analitik diaktifkan, data kunjungan anonim dapat digunakan untuk meningkatkan website.</p>
         <h2 className="text-2xl font-semibold text-foreground">Kontak</h2>
-        <p>Pertanyaan tentang privasi dapat dikirim ke {EMAIL}.</p>
+        <p>Pertanyaan tentang privasi dapat dikirim ke {general.email}.</p>
       </section>
     </SiteLayout>
   );

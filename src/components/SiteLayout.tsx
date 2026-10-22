@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import { Mail, Phone, Smartphone, Menu, X, ArrowUpRight, MessageCircle, Clock } from "lucide-react";
-import { EMAIL, HOURS, WA_DISPLAY, waLink } from "@/lib/site";
+import { waLink } from "@/lib/content";
+import { useSiteContent } from "@/lib/content-context";
 
 const nav = [
   { to: "/", label: "Beranda" },
@@ -25,8 +26,9 @@ export function Logo({ light = false }: { light?: boolean }) {
 }
 
 export function WaButton({ children = "Konsultasi via WhatsApp", service, className = "", light = false }: { children?: ReactNode; service?: string; className?: string; light?: boolean }) {
+  const { general } = useSiteContent();
   return (
-    <a href={waLink(service)} target="_blank" rel="noopener noreferrer"
+    <a href={waLink(general, service)} target="_blank" rel="noopener noreferrer"
       className={`inline-flex items-center gap-2 rounded-full px-6 py-3 font-semibold transition hover:brightness-110 ${light ? "bg-background text-primary" : "bg-primary text-primary-foreground"} ${className}`}>
       {children} <ArrowUpRight className="h-4 w-4" />
     </a>
@@ -52,14 +54,15 @@ export function PageHero({ title, crumb }: { title: string; crumb: string }) {
 
 export function SiteLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
+  const { general } = useSiteContent();
   return (
     <div className="min-h-screen">
       <header className="absolute inset-x-0 top-0 z-40">
         <div className="bg-primary pb-12 text-primary-foreground">
           <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-6 px-4 py-3 text-sm font-medium">
-            <a href={waLink()} className="flex items-center gap-2"><Phone className="h-4 w-4" />{WA_DISPLAY}</a>
-            <a href={`mailto:${EMAIL}`} className="hidden items-center gap-2 sm:flex"><Mail className="h-4 w-4" />{EMAIL}</a>
-            <span className="ml-auto hidden items-center gap-2 md:flex"><Clock className="h-4 w-4" />{HOURS}</span>
+            <a href={waLink(general)} className="flex items-center gap-2"><Phone className="h-4 w-4" />{general.waDisplay}</a>
+            <a href={`mailto:${general.email}`} className="hidden items-center gap-2 sm:flex"><Mail className="h-4 w-4" />{general.email}</a>
+            <span className="ml-auto hidden items-center gap-2 md:flex"><Clock className="h-4 w-4" />{general.hours}</span>
           </div>
         </div>
         <div className="mx-auto -mt-10 max-w-7xl px-4">
@@ -103,14 +106,15 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             <ul className="mt-4 space-y-2 text-sm opacity-80">
               {nav.map((n) => <li key={n.to}><Link to={n.to} className="hover:text-primary">{n.label}</Link></li>)}
               <li><Link to="/kebijakan-privasi" className="hover:text-primary">Kebijakan Privasi</Link></li>
+              <li><Link to="/auth" className="hover:text-primary">Login Admin</Link></li>
             </ul>
           </div>
           <div>
             <h4 className="text-lg font-semibold">Kontak</h4>
             <ul className="mt-4 space-y-2 text-sm opacity-80">
-              <li>WhatsApp {WA_DISPLAY}</li>
-              <li>{EMAIL}</li>
-              <li>{HOURS}</li>
+              <li>WhatsApp {general.waDisplay}</li>
+              <li>{general.email}</li>
+              <li>{general.hours}</li>
             </ul>
           </div>
         </div>
@@ -119,7 +123,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         </div>
       </footer>
 
-      <a href={waLink()} target="_blank" rel="noopener noreferrer" aria-label="Chat WhatsApp"
+      <a href={waLink(general)} target="_blank" rel="noopener noreferrer" aria-label="Chat WhatsApp"
         className="fixed bottom-5 right-5 z-50 grid h-14 w-14 place-items-center rounded-full bg-whatsapp text-primary-foreground shadow-xl transition hover:scale-105">
         <MessageCircle className="h-7 w-7" />
       </a>
