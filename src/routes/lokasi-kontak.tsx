@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Mail, MessageCircle, Clock } from "lucide-react";
 import { PageHero, SiteLayout, WaButton } from "@/components/SiteLayout";
 import { BranchCards } from "@/components/Sections";
-import { EMAIL, HOURS, WA_DISPLAY } from "@/lib/site";
+import { useSiteContent } from "@/lib/content-context";
 
 export const Route = createFileRoute("/lokasi-kontak")({
   head: () => ({
@@ -17,10 +17,11 @@ export const Route = createFileRoute("/lokasi-kontak")({
 });
 
 function Contact() {
+  const { general } = useSiteContent();
   const items = [
-    { icon: MessageCircle, t: "WhatsApp", v: WA_DISPLAY },
-    { icon: Mail, t: "Email", v: EMAIL },
-    { icon: Clock, t: "Jam Operasional", v: HOURS },
+    { icon: MessageCircle, t: "WhatsApp", v: general.waDisplay },
+    { icon: Mail, t: "Email", v: general.email },
+    { icon: Clock, t: "Jam Operasional", v: general.hours },
   ];
   return (
     <SiteLayout>
