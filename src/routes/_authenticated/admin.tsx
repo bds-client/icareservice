@@ -90,7 +90,7 @@ function ListEditor<T extends object>({
       <Button
         type="button"
         variant="outline"
-        onClick={() => onChange([...items, Object.fromEntries(fields.map((f) => [f.key, ""]))])}
+        onClick={() => onChange([...items, Object.fromEntries(fields.map((f) => [f.key, ""])) as T])}
       >
         <Plus className="mr-2 h-4 w-4" /> {addLabel}
       </Button>
