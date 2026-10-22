@@ -67,7 +67,7 @@ function ListEditor<T extends object>({
 }) {
   const update = (i: number, k: string, v: string) => {
     const next = items.slice();
-    next[i] = { ...next[i], [k]: v };
+    next[i] = { ...(next[i] as object), [k]: v } as T;
     onChange(next);
   };
   return (

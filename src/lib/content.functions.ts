@@ -27,7 +27,9 @@ export const getSiteContent = createServerFn({ method: "GET" }).handler(async ()
   return merged as unknown as SiteContent;
 });
 
-async function canEdit(supabase: { rpc: (fn: string, args: Record<string, unknown>) => Promise<{ data: unknown }> }, userId: string) {
+type RpcClient = { rpc: (fn: "has_role", args: { _user_id: string; _role: "admin" | "staff" }) => Promise<{ data: unknown }> };
+
+async function canEdit(supabase: RpcClient, userId: string) {
   const [admin, staff] = await Promise.all([
     supabase.rpc("has_role", { _user_id: userId, _role: "admin" }),
     supabase.rpc("has_role", { _user_id: userId, _role: "staff" }),
@@ -54,7 +56,7 @@ export const getMyRoles = createServerFn({ method: "GET" })
     return (data ?? []).map((r) => r.role as string);
   });
 
-async function requireAdmin(supabase: { rpc: (fn: string, args: Record<string, unknown>) => Promise<{ data: unknown }> }, userId: string) {
+async function requireAdmin(supabase: RpcClient, userId: string) {
   const { data } = await supabase.rpc("has_role", { _user_id: userId, _role: "admin" });
   if (!data) throw new Error("Forbidden");
 }
