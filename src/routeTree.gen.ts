@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as GaleriRouteImport } from './routes/galeri'
 import { Route as KebijakanPrivasiRouteImport } from './routes/kebijakan-privasi'
 import { Route as LayananRouteImport } from './routes/layanan'
 import { Route as LokasiKontakRouteImport } from './routes/lokasi-kontak'
@@ -31,6 +32,11 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GaleriRoute = GaleriRouteImport.update({
+  id: '/galeri',
+  path: '/galeri',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KebijakanPrivasiRoute = KebijakanPrivasiRouteImport.update({
@@ -67,6 +73,7 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/galeri': typeof GaleriRoute
   '/kebijakan-privasi': typeof KebijakanPrivasiRoute
   '/layanan': typeof LayananRoute
   '/lokasi-kontak': typeof LokasiKontakRoute
@@ -77,6 +84,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/galeri': typeof GaleriRoute
   '/kebijakan-privasi': typeof KebijakanPrivasiRoute
   '/layanan': typeof LayananRoute
   '/lokasi-kontak': typeof LokasiKontakRoute
@@ -89,6 +97,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/galeri': typeof GaleriRoute
   '/kebijakan-privasi': typeof KebijakanPrivasiRoute
   '/layanan': typeof LayananRoute
   '/lokasi-kontak': typeof LokasiKontakRoute
@@ -101,6 +110,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/galeri'
     | '/kebijakan-privasi'
     | '/layanan'
     | '/lokasi-kontak'
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/galeri'
     | '/kebijakan-privasi'
     | '/layanan'
     | '/lokasi-kontak'
@@ -122,6 +133,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/galeri'
     | '/kebijakan-privasi'
     | '/layanan'
     | '/lokasi-kontak'
@@ -134,6 +146,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  GaleriRoute: typeof GaleriRoute
   KebijakanPrivasiRoute: typeof KebijakanPrivasiRoute
   LayananRoute: typeof LayananRoute
   LokasiKontakRoute: typeof LokasiKontakRoute
@@ -162,6 +175,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/galeri': {
+      id: '/galeri'
+      path: '/galeri'
+      fullPath: '/galeri'
+      preLoaderRoute: typeof GaleriRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/kebijakan-privasi': {
@@ -224,6 +244,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  GaleriRoute: GaleriRoute,
   KebijakanPrivasiRoute: KebijakanPrivasiRoute,
   LayananRoute: LayananRoute,
   LokasiKontakRoute: LokasiKontakRoute,
