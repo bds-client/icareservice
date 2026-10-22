@@ -83,7 +83,7 @@ function ListEditor<T extends object>({
             <Trash2 className="h-4 w-4" />
           </button>
           {fields.map((f) => (
-            <Field key={f.key} label={f.label} value={(item as Record<string, string>)[f.key] ?? ""} multiline={f.multiline} onChange={(v) => update(i, f.key, v)} />
+            <Field key={f.key} label={f.label} value={(item as Record<string, string>)[f.key] ?? ""} multiline={f.multiline ?? false} onChange={(v) => update(i, f.key, v)} />
           ))}
         </div>
       ))}
