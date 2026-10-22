@@ -10,6 +10,8 @@ export const Route = createFileRoute("/layanan")({
       { name: "description", content: "Konsultasi, diagnosis, penanganan layar dan baterai iPhone di Denpasar." },
       { property: "og:title", content: "Layanan iCare Service" },
       { property: "og:description", content: "Daftar layanan servis iPhone iCare Service di Denpasar." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Services,

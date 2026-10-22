@@ -12,6 +12,8 @@ export const Route = createFileRoute("/tentang-icare")({
       { name: "description", content: "Profil iCare Service, layanan servis independen dari Putra Mahkota Group sejak 1998." },
       { property: "og:title", content: "Tentang iCare Service" },
       { property: "og:description", content: "Profil, visi, misi, dan prinsip layanan iCare Service." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: About,

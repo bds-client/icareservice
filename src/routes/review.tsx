@@ -9,6 +9,8 @@ export const Route = createFileRoute("/review")({
       { name: "description", content: "Baca ulasan asli pelanggan iCare Service Denpasar 1 dan 2 di Google Maps." },
       { property: "og:title", content: "Review Pelanggan iCare Service" },
       { property: "og:description", content: "Ulasan terverifikasi dari Google Maps." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Reviews,

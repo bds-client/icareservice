@@ -9,6 +9,8 @@ export const Route = createFileRoute("/kebijakan-privasi")({
       { name: "description", content: "Penjelasan pengumpulan dan penggunaan data di website iCare Service." },
       { property: "og:title", content: "Kebijakan Privasi iCare Service" },
       { property: "og:description", content: "Bagaimana iCare Service mengelola data pengunjung." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Privacy,

@@ -5,6 +5,6 @@
 - [x] Inspect and deliver clean ZIP with Indonesian hosting instructions.
 
 # Website gallery
-- [ ] Add public gallery menu and page.
-- [ ] Add CMS photo upload and removal with protected storage access.
-- [ ] Verify uploaded photos appear publicly and can be removed.
+- [x] Add public gallery menu and page.
+- [x] Add CMS photo upload and removal with protected storage access.
+- [x] Verify uploaded photos appear publicly and can be removed.
