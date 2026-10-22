@@ -1,0 +1,128 @@
+import { Link } from "@tanstack/react-router";
+import { useState, type ReactNode } from "react";
+import { Mail, Phone, Smartphone, Menu, X, ArrowUpRight, MessageCircle, Clock } from "lucide-react";
+import { EMAIL, HOURS, WA_DISPLAY, waLink } from "@/lib/site";
+
+const nav = [
+  { to: "/", label: "Beranda" },
+  { to: "/tentang-icare", label: "Tentang" },
+  { to: "/layanan", label: "Layanan" },
+  { to: "/review", label: "Review" },
+  { to: "/lokasi-kontak", label: "Lokasi" },
+] as const;
+
+export function Logo({ light = false }: { light?: boolean }) {
+  return (
+    <Link to="/" className="flex items-center gap-2">
+      <span className="grid h-10 w-10 place-items-center rounded-lg bg-primary text-primary-foreground">
+        <Smartphone className="h-5 w-5" />
+      </span>
+      <span className={`font-display text-2xl font-bold ${light ? "text-ink-foreground" : "text-foreground"}`}>
+        iCare<span className="text-primary"> Service</span>
+      </span>
+    </Link>
+  );
+}
+
+export function WaButton({ children = "Konsultasi via WhatsApp", service, className = "" }: { children?: ReactNode; service?: string; className?: string }) {
+  return (
+    <a href={waLink(service)} target="_blank" rel="noopener noreferrer"
+      className={`inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground transition hover:brightness-110 ${className}`}>
+      {children} <ArrowUpRight className="h-4 w-4" />
+    </a>
+  );
+}
+
+export function Eyebrow({ children }: { children: ReactNode }) {
+  return (
+    <span className="inline-flex items-center gap-2 rounded-md border border-border bg-accent px-3 py-1 font-display text-sm font-semibold uppercase tracking-wide text-accent-foreground">
+      <Smartphone className="h-4 w-4" /> {children}
+    </span>
+  );
+}
+
+export function PageHero({ title, crumb }: { title: string; crumb: string }) {
+  return (
+    <section className="bg-ink pb-20 pt-44 text-center text-ink-foreground">
+      <h1 className="text-5xl font-bold md:text-6xl">{title}</h1>
+      <p className="mt-4 text-sm opacity-70">Beranda / <span className="text-primary">{crumb}</span></p>
+    </section>
+  );
+}
+
+export function SiteLayout({ children }: { children: ReactNode }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="min-h-screen">
+      <header className="absolute inset-x-0 top-0 z-40">
+        <div className="bg-primary pb-12 text-primary-foreground">
+          <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-6 px-4 py-3 text-sm font-medium">
+            <a href={waLink()} className="flex items-center gap-2"><Phone className="h-4 w-4" />{WA_DISPLAY}</a>
+            <a href={`mailto:${EMAIL}`} className="hidden items-center gap-2 sm:flex"><Mail className="h-4 w-4" />{EMAIL}</a>
+            <span className="ml-auto hidden items-center gap-2 md:flex"><Clock className="h-4 w-4" />{HOURS}</span>
+          </div>
+        </div>
+        <div className="mx-auto -mt-10 max-w-7xl px-4">
+          <div className="flex items-center justify-between rounded-full bg-background px-5 py-3 shadow-lg md:px-8">
+            <Logo />
+            <nav className="hidden items-center gap-7 lg:flex">
+              {nav.map((n) => (
+                <Link key={n.to} to={n.to} activeOptions={{ exact: true }}
+                  className="font-medium text-foreground transition hover:text-primary"
+                  activeProps={{ className: "text-primary" }}>{n.label}</Link>
+              ))}
+            </nav>
+            <WaButton className="hidden lg:inline-flex">Konsultasi</WaButton>
+            <button aria-label="Menu" className="lg:hidden" onClick={() => setOpen(!open)}>
+              {open ? <X /> : <Menu />}
+            </button>
+          </div>
+          {open && (
+            <div className="mt-2 rounded-2xl bg-background p-4 shadow-lg lg:hidden">
+              {nav.map((n) => (
+                <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="block py-3 font-medium">{n.label}</Link>
+              ))}
+              <WaButton className="mt-2 w-full justify-center" />
+            </div>
+          )}
+        </div>
+      </header>
+
+      <main>{children}</main>
+
+      <footer className="bg-ink text-ink-foreground">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 md:grid-cols-4">
+          <div className="md:col-span-2">
+            <Logo light />
+            <p className="mt-4 max-w-sm text-sm opacity-70">
+              Layanan servis independen untuk iPhone dan produk Apple lainnya sesuai kemampuan layanan. Bagian dari Putra Mahkota Group. Tidak berafiliasi dengan Apple Inc.
+            </p>
+          </div>
+          <div>
+            <h4 className="text-lg font-semibold">Menu</h4>
+            <ul className="mt-4 space-y-2 text-sm opacity-80">
+              {nav.map((n) => <li key={n.to}><Link to={n.to} className="hover:text-primary">{n.label}</Link></li>)}
+              <li><Link to="/kebijakan-privasi" className="hover:text-primary">Kebijakan Privasi</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-lg font-semibold">Kontak</h4>
+            <ul className="mt-4 space-y-2 text-sm opacity-80">
+              <li>WhatsApp {WA_DISPLAY}</li>
+              <li>{EMAIL}</li>
+              <li>{HOURS}</li>
+            </ul>
+          </div>
+        </div>
+        <div className="border-t border-ink-foreground/10 py-5 text-center text-xs opacity-60">
+          © {new Date().getFullYear()} iCare Service · Putra Mahkota Group
+        </div>
+      </footer>
+
+      <a href={waLink()} target="_blank" rel="noopener noreferrer" aria-label="Chat WhatsApp"
+        className="fixed bottom-5 right-5 z-50 grid h-14 w-14 place-items-center rounded-full bg-whatsapp text-primary-foreground shadow-xl transition hover:scale-105">
+        <MessageCircle className="h-7 w-7" />
+      </a>
+    </div>
+  );
+}
