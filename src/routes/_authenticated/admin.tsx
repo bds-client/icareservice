@@ -149,7 +149,7 @@ function TrustForm({ content, save }: { content: SiteContent; save: ReturnType<t
           { key: "t", label: "Judul" },
           { key: "d", label: "Deskripsi" },
         ]}
-        onChange={(x) => setV(x as typeof v)}
+        onChange={(x) => setV(x as unknown as typeof v)}
         addLabel="Tambah poin"
       />
     </SectionCard>
@@ -180,7 +180,7 @@ function ServicesForm({ content, save }: { content: SiteContent; save: ReturnTyp
           { key: "name", label: "Nama layanan" },
           { key: "desc", label: "Deskripsi", multiline: true },
         ]}
-        onChange={(x) => setV(x as typeof v)}
+        onChange={(x) => setV(x as unknown as typeof v)}
         addLabel="Tambah layanan"
       />
       <p className="text-sm text-muted-foreground">Foto layanan mengikuti urutan: diagnosis, layar, baterai.</p>
@@ -200,7 +200,7 @@ function FeesForm({ content, save }: { content: SiteContent; save: ReturnType<ty
             { key: "name", label: "Jasa" },
             { key: "price", label: "Harga" },
           ]}
-          onChange={(x) => setFees(x as typeof fees)}
+          onChange={(x) => setFees(x as unknown as typeof fees)}
           addLabel="Tambah jasa"
         />
       </SectionCard>
@@ -211,7 +211,7 @@ function FeesForm({ content, save }: { content: SiteContent; save: ReturnType<ty
             { key: "part", label: "Sparepart" },
             { key: "price", label: "Harga" },
           ]}
-          onChange={(x) => setParts(x as typeof parts)}
+          onChange={(x) => setParts(x as unknown as typeof parts)}
           addLabel="Tambah sparepart"
         />
       </SectionCard>
@@ -230,7 +230,7 @@ function BranchesForm({ content, save }: { content: SiteContent; save: ReturnTyp
           { key: "address", label: "Alamat", multiline: true },
           { key: "maps", label: "Link Google Maps" },
         ]}
-        onChange={(x) => setV(x as typeof v)}
+        onChange={(x) => setV(x as unknown as typeof v)}
         addLabel="Tambah cabang"
       />
     </SectionCard>

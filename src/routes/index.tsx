@@ -59,7 +59,7 @@ function Index() {
       <section className="mx-auto -mt-10 max-w-7xl px-4 relative z-10">
         <div className="grid gap-px overflow-hidden rounded-2xl bg-border shadow-xl sm:grid-cols-2 lg:grid-cols-4">
           {trust.map(({ t, d }, i) => {
-            const I = trustIcons[i % trustIcons.length];
+            const I = trustIcons[i % trustIcons.length] ?? BadgeCheck;
             return (
               <div key={t} className="flex gap-4 bg-card p-6">
                 <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-accent text-primary"><I className="h-6 w-6" /></span>
