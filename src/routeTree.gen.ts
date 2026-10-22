@@ -10,33 +10,102 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as KebijakanPrivasiRouteImport } from './routes/kebijakan-privasi'
+import { Route as LayananRouteImport } from './routes/layanan'
+import { Route as LokasiKontakRouteImport } from './routes/lokasi-kontak'
+import { Route as ReviewRouteImport } from './routes/review'
+import { Route as TentangIcareRouteImport } from './routes/tentang-icare'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KebijakanPrivasiRoute = KebijakanPrivasiRouteImport.update({
+  id: '/kebijakan-privasi',
+  path: '/kebijakan-privasi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LayananRoute = LayananRouteImport.update({
+  id: '/layanan',
+  path: '/layanan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LokasiKontakRoute = LokasiKontakRouteImport.update({
+  id: '/lokasi-kontak',
+  path: '/lokasi-kontak',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReviewRoute = ReviewRouteImport.update({
+  id: '/review',
+  path: '/review',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TentangIcareRoute = TentangIcareRouteImport.update({
+  id: '/tentang-icare',
+  path: '/tentang-icare',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/kebijakan-privasi': typeof KebijakanPrivasiRoute
+  '/layanan': typeof LayananRoute
+  '/lokasi-kontak': typeof LokasiKontakRoute
+  '/review': typeof ReviewRoute
+  '/tentang-icare': typeof TentangIcareRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/kebijakan-privasi': typeof KebijakanPrivasiRoute
+  '/layanan': typeof LayananRoute
+  '/lokasi-kontak': typeof LokasiKontakRoute
+  '/review': typeof ReviewRoute
+  '/tentang-icare': typeof TentangIcareRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/kebijakan-privasi': typeof KebijakanPrivasiRoute
+  '/layanan': typeof LayananRoute
+  '/lokasi-kontak': typeof LokasiKontakRoute
+  '/review': typeof ReviewRoute
+  '/tentang-icare': typeof TentangIcareRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/kebijakan-privasi'
+    | '/layanan'
+    | '/lokasi-kontak'
+    | '/review'
+    | '/tentang-icare'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/kebijakan-privasi'
+    | '/layanan'
+    | '/lokasi-kontak'
+    | '/review'
+    | '/tentang-icare'
+  id:
+    | '__root__'
+    | '/'
+    | '/kebijakan-privasi'
+    | '/layanan'
+    | '/lokasi-kontak'
+    | '/review'
+    | '/tentang-icare'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  KebijakanPrivasiRoute: typeof KebijakanPrivasiRoute
+  LayananRoute: typeof LayananRoute
+  LokasiKontakRoute: typeof LokasiKontakRoute
+  ReviewRoute: typeof ReviewRoute
+  TentangIcareRoute: typeof TentangIcareRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +117,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/kebijakan-privasi': {
+      id: '/kebijakan-privasi'
+      path: '/kebijakan-privasi'
+      fullPath: '/kebijakan-privasi'
+      preLoaderRoute: typeof KebijakanPrivasiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/layanan': {
+      id: '/layanan'
+      path: '/layanan'
+      fullPath: '/layanan'
+      preLoaderRoute: typeof LayananRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lokasi-kontak': {
+      id: '/lokasi-kontak'
+      path: '/lokasi-kontak'
+      fullPath: '/lokasi-kontak'
+      preLoaderRoute: typeof LokasiKontakRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/review': {
+      id: '/review'
+      path: '/review'
+      fullPath: '/review'
+      preLoaderRoute: typeof ReviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tentang-icare': {
+      id: '/tentang-icare'
+      path: '/tentang-icare'
+      fullPath: '/tentang-icare'
+      preLoaderRoute: typeof TentangIcareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  KebijakanPrivasiRoute: KebijakanPrivasiRoute,
+  LayananRoute: LayananRoute,
+  LokasiKontakRoute: LokasiKontakRoute,
+  ReviewRoute: ReviewRoute,
+  TentangIcareRoute: TentangIcareRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
