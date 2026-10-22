@@ -27,7 +27,7 @@ export const getSiteContent = createServerFn({ method: "GET" }).handler(async ()
   return merged as unknown as SiteContent;
 });
 
-type RpcClient = { rpc: (fn: "has_role", args: { _user_id: string; _role: "admin" | "staff" }) => Promise<{ data: unknown }> };
+type RpcClient = { rpc: (fn: "has_role", args: { _user_id: string; _role: "admin" | "staff" }) => PromiseLike<{ data: unknown }> };
 
 async function canEdit(supabase: RpcClient, userId: string) {
   const [admin, staff] = await Promise.all([
