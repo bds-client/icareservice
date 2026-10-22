@@ -14,6 +14,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "iCare Service membantu Anda memahami pilihan penanganan, kualitas sparepart, dan biaya sebelum servis iPhone di Denpasar." },
       { property: "og:title", content: "Servis iPhone Denpasar | iCare Service" },
       { property: "og:description", content: "Servis iPhone dengan pilihan yang jelas dan transparan di Denpasar, Bali." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Index,

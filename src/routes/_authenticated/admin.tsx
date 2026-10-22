@@ -21,9 +21,12 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
+import { GalleryAdmin } from "@/components/GalleryAdmin";
+import { galleryQuery } from "@/lib/gallery";
 
 export const Route = createFileRoute("/_authenticated/admin")({
-  head: () => ({ meta: [{ title: "CMS Admin | iCare Service" }] }),
+  head: () => ({ meta: [{ title: "CMS Admin | iCare Service" }, { name: "description", content: "Pengelolaan konten dan galeri iCare Service." }, { property: "og:title", content: "CMS Admin iCare Service" }, { property: "og:description", content: "Pengelolaan website iCare Service." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(galleryQuery),
   component: Admin,
 });
 
@@ -413,6 +416,7 @@ function Admin() {
             <TabsTrigger value="layanan">Layanan</TabsTrigger>
             <TabsTrigger value="harga">Harga</TabsTrigger>
             <TabsTrigger value="cabang">Cabang</TabsTrigger>
+            <TabsTrigger value="galeri">Galeri</TabsTrigger>
             {isAdmin && (
               <TabsTrigger value="tim">
                 <Users className="mr-1 h-4 w-4" /> Tim
@@ -441,6 +445,7 @@ function Admin() {
             <TabsContent value="cabang">
               <BranchesForm content={content} save={save} />
             </TabsContent>
+            <TabsContent value="galeri"><GalleryAdmin /></TabsContent>
             {isAdmin && (
               <TabsContent value="tim">
                 <TeamPanel />

@@ -11,6 +11,8 @@ export const Route = createFileRoute("/lokasi-kontak")({
       { name: "description", content: "Alamat dua cabang iCare Service di Jl. Teuku Umar Denpasar, jam buka, WhatsApp, dan email." },
       { property: "og:title", content: "Lokasi & Kontak iCare Service" },
       { property: "og:description", content: "Dua cabang di Jl. Teuku Umar, Denpasar. Buka setiap hari 09.00–22.00 WITA." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Contact,

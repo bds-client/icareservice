@@ -8,6 +8,13 @@
       "when": 1792709710326,
       "tag": "0000_cms_roles_and_site_content",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792712064905,
+      "tag": "0001_gallery_photos",
+      "breakpoints": true
     }
   ]
 }

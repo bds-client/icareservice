@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
-    meta: [{ title: "Masuk Admin | iCare Service" }],
+    meta: [{ title: "Masuk Admin | iCare Service" }, { name: "description", content: "Masuk ke pengelolaan website iCare Service." }, { property: "og:title", content: "Masuk Admin iCare Service" }, { property: "og:description", content: "Akses pengelolaan website iCare Service." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }],
   }),
   component: AuthPage,
 });
