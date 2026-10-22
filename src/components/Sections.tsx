@@ -1,6 +1,41 @@
-import { ArrowUpRight, Clock, MapPin, Star, MessageSquareQuote } from "lucide-react";
-import { branches, HOURS, services } from "@/lib/site";
+import { ArrowUpRight, Clock, MapPin, Star, MessageSquareQuote, Wrench, Cpu } from "lucide-react";
+import { branches, HOURS, serviceFees, services, sparepartPrices } from "@/lib/site";
 import { Eyebrow, WaButton } from "./SiteLayout";
+
+export function PriceTables() {
+  return (
+    <div className="grid gap-8 lg:grid-cols-2">
+      <div className="overflow-hidden rounded-2xl border border-border bg-card">
+        <div className="flex items-center gap-3 bg-ink p-6 text-ink-foreground">
+          <Wrench className="h-6 w-6 text-primary" />
+          <h3 className="text-2xl font-semibold">Biaya Jasa Servis</h3>
+        </div>
+        <ul className="divide-y divide-border">
+          {serviceFees.map((f) => (
+            <li key={f.name} className="flex items-center justify-between gap-4 px-6 py-4">
+              <span>{f.name}</span>
+              <span className="font-display text-lg font-semibold text-primary">{f.price}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="overflow-hidden rounded-2xl border border-border bg-card">
+        <div className="flex items-center gap-3 bg-ink p-6 text-ink-foreground">
+          <Cpu className="h-6 w-6 text-primary" />
+          <h3 className="text-2xl font-semibold">Harga Sparepart</h3>
+        </div>
+        <ul className="divide-y divide-border">
+          {sparepartPrices.map((p) => (
+            <li key={p.part} className="flex items-center justify-between gap-4 px-6 py-4">
+              <span>{p.part}</span>
+              <span className="font-display text-lg font-semibold text-primary">{p.price}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
 
 export function ServicesGrid() {
   return (
