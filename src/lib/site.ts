@@ -32,3 +32,26 @@ export const services = [
   { name: "Penanganan Layar", img: screen, desc: "Konsultasi untuk layar retak atau bermasalah, dengan penjelasan pilihan kualitas sparepart dan biaya." },
   { name: "Penanganan Baterai", img: battery, desc: "Pengecekan performa baterai dan opsi penggantian sesuai ketersediaan sparepart." },
 ];
+
+// Harga sementara (placeholder) — konfirmasi akhir oleh tim sebelum pengerjaan.
+export const serviceFees = [
+  { name: "Konsultasi & Diagnosis", price: "Gratis" },
+  { name: "Jasa Ganti Layar", price: "Rp 150.000" },
+  { name: "Jasa Ganti Baterai", price: "Rp 100.000" },
+  { name: "Jasa Ganti Kamera", price: "Rp 150.000" },
+  { name: "Jasa Perbaikan Charging Port", price: "Rp 150.000" },
+  { name: "Jasa Perbaikan Software / Restore", price: "Rp 100.000" },
+];
+
+export const sparepartPrices = [
+  { part: "Layar iPhone (OEM)", price: "Rp 850.000" },
+  { part: "Layar iPhone (Original)", price: "Rp 1.500.000" },
+  { part: "Baterai iPhone (OEM)", price: "Rp 350.000" },
+  { part: "Baterai iPhone (Original)", price: "Rp 650.000" },
+  { part: "Kamera Belakang", price: "Rp 750.000" },
+  { part: "Kamera Depan", price: "Rp 450.000" },
+  { part: "Charging Port", price: "Rp 400.000" },
+  { part: "Backglass / Casing Belakang", price: "Rp 550.000" },
+  { part: "Speaker / Ear Speaker", price: "Rp 300.000" },
+  { part: "Tombol Home / Power", price: "Rp 250.000" },
+];
