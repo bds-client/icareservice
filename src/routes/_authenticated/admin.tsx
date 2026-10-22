@@ -54,18 +54,18 @@ function Field({ label, value, onChange, multiline = false }: { label: string; v
   );
 }
 
-function ListEditor<T extends Record<string, string>>({
+function ListEditor({
   items,
   fields,
   onChange,
   addLabel,
 }: {
-  items: T[];
-  fields: { key: keyof T; label: string; multiline?: boolean }[];
-  onChange: (items: T[]) => void;
+  items: Record<string, string>[];
+  fields: { key: string; label: string; multiline?: boolean }[];
+  onChange: (items: Record<string, string>[]) => void;
   addLabel: string;
 }) {
-  const update = (i: number, k: keyof T, v: string) => {
+  const update = (i: number, k: string, v: string) => {
     const next = items.slice();
     next[i] = { ...next[i], [k]: v };
     onChange(next);
@@ -83,14 +83,14 @@ function ListEditor<T extends Record<string, string>>({
             <Trash2 className="h-4 w-4" />
           </button>
           {fields.map((f) => (
-            <Field key={String(f.key)} label={f.label} value={item[f.key]} multiline={f.multiline} onChange={(v) => update(i, f.key, v)} />
+            <Field key={f.key} label={f.label} value={item[f.key]} multiline={f.multiline} onChange={(v) => update(i, f.key, v)} />
           ))}
         </div>
       ))}
       <Button
         type="button"
         variant="outline"
-        onClick={() => onChange([...items, Object.fromEntries(fields.map((f) => [f.key, ""])) as T])}
+        onClick={() => onChange([...items, Object.fromEntries(fields.map((f) => [f.key, ""]))])}
       >
         <Plus className="mr-2 h-4 w-4" /> {addLabel}
       </Button>
@@ -149,7 +149,7 @@ function TrustForm({ content, save }: { content: SiteContent; save: ReturnType<t
           { key: "t", label: "Judul" },
           { key: "d", label: "Deskripsi" },
         ]}
-        onChange={setV}
+        onChange={(x) => setV(x as typeof v)}
         addLabel="Tambah poin"
       />
     </SectionCard>
@@ -180,7 +180,7 @@ function ServicesForm({ content, save }: { content: SiteContent; save: ReturnTyp
           { key: "name", label: "Nama layanan" },
           { key: "desc", label: "Deskripsi", multiline: true },
         ]}
-        onChange={setV}
+        onChange={(x) => setV(x as typeof v)}
         addLabel="Tambah layanan"
       />
       <p className="text-sm text-muted-foreground">Foto layanan mengikuti urutan: diagnosis, layar, baterai.</p>
@@ -200,7 +200,7 @@ function FeesForm({ content, save }: { content: SiteContent; save: ReturnType<ty
             { key: "name", label: "Jasa" },
             { key: "price", label: "Harga" },
           ]}
-          onChange={setFees}
+          onChange={(x) => setFees(x as typeof fees)}
           addLabel="Tambah jasa"
         />
       </SectionCard>
@@ -211,7 +211,7 @@ function FeesForm({ content, save }: { content: SiteContent; save: ReturnType<ty
             { key: "part", label: "Sparepart" },
             { key: "price", label: "Harga" },
           ]}
-          onChange={setParts}
+          onChange={(x) => setParts(x as typeof parts)}
           addLabel="Tambah sparepart"
         />
       </SectionCard>
@@ -230,7 +230,7 @@ function BranchesForm({ content, save }: { content: SiteContent; save: ReturnTyp
           { key: "address", label: "Alamat", multiline: true },
           { key: "maps", label: "Link Google Maps" },
         ]}
-        onChange={setV}
+        onChange={(x) => setV(x as typeof v)}
         addLabel="Tambah cabang"
       />
     </SectionCard>

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, BadgeCheck, Eye, HandHeart, ShieldCheck, Wrench } from "lucide-react";
+import { ArrowUpRight, BadgeCheck, Eye, HandHeart, ShieldCheck, Wrench, type LucideIcon } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import about from "@/assets/about.jpg";
 import { SiteLayout, WaButton } from "@/components/SiteLayout";
