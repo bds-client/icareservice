@@ -9,6 +9,7 @@ const nav = [
   { to: "/tentang-icare", label: "Tentang" },
   { to: "/layanan", label: "Layanan" },
   { to: "/review", label: "Review" },
+  { to: "/galeri", label: "Galeri" },
   { to: "/lokasi-kontak", label: "Lokasi" },
 ] as const;
 
@@ -68,7 +69,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         <div className="mx-auto -mt-10 max-w-7xl px-4">
           <div className="flex items-center justify-between rounded-full bg-background px-5 py-3 shadow-lg md:px-8">
             <Logo />
-            <nav className="hidden items-center gap-7 lg:flex">
+            <nav className="hidden items-center gap-5 lg:flex">
               {nav.map((n) => (
                 <Link key={n.to} to={n.to} activeOptions={{ exact: true }}
                   className="font-medium text-foreground transition hover:text-primary"
