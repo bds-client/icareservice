@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep self-hosted PHP exports separate from the TanStack application; assemble and test downloadable source in temporary staging so the live app remains unchanged.
