@@ -19,5 +19,5 @@ export const getGallery = createServerFn({ method: "GET" }).handler(async () => 
   if (!data.length) return [];
   const { data: signed, error: signingError } = await client.storage.from("gallery").createSignedUrls(data.map((photo) => photo.path), 3600);
   if (signingError) throw new Error("Foto belum dapat dimuat. Silakan coba lagi.");
-  return data.map((photo) => ({ ...photo, url: (signed?.find((item) => item.path === photo.path)?.signedUrl ?? "").replace(base, import.meta.env.VITE_SUPABASE_URL) }));
+  return data.map((photo) => ({ ...photo, url: (signed?.find((item) => item.path === photo.path)?.signedUrl ?? "").replace(base, import.meta.env["VITE_SUPABASE_URL"]) }));
 });
