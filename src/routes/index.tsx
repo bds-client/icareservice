@@ -19,7 +19,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const trustIcons = [BadgeCheck, Eye, Wrench, HandHeart];
+const trustIcons: LucideIcon[] = [BadgeCheck, Eye, Wrench, HandHeart];
 
 function Index() {
   const { hero: h, trust, about: a, general } = useSiteContent();
