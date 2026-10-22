@@ -66,7 +66,7 @@ export function CtaBand() {
           <h2 className="text-4xl font-bold md:text-5xl">Perangkat bermasalah?</h2>
           <p className="mt-3 max-w-xl opacity-90">Ceritakan kendala Anda. Tim kami jelaskan pilihan penanganan, kualitas sparepart, dan biaya sebelum servis.</p>
         </div>
-        <WaButton className="bg-background !text-primary">Konsultasi via WhatsApp</WaButton>
+        <WaButton light>Konsultasi via WhatsApp</WaButton>
       </div>
     </section>
   );

@@ -24,10 +24,10 @@ export function Logo({ light = false }: { light?: boolean }) {
   );
 }
 
-export function WaButton({ children = "Konsultasi via WhatsApp", service, className = "" }: { children?: ReactNode; service?: string; className?: string }) {
+export function WaButton({ children = "Konsultasi via WhatsApp", service, className = "", light = false }: { children?: ReactNode; service?: string; className?: string; light?: boolean }) {
   return (
     <a href={waLink(service)} target="_blank" rel="noopener noreferrer"
-      className={`inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground transition hover:brightness-110 ${className}`}>
+      className={`inline-flex items-center gap-2 rounded-full px-6 py-3 font-semibold transition hover:brightness-110 ${light ? "bg-background text-primary" : "bg-primary text-primary-foreground"} ${className}`}>
       {children} <ArrowUpRight className="h-4 w-4" />
     </a>
   );
