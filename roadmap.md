@@ -10,5 +10,5 @@
 - [x] Verify uploaded photos appear publicly and can be removed.
 
 # Google reviews
-- [ ] Add protected Google review retrieval and public display for both branches.
-- [ ] Add CMS controls and verify supported behavior without live Maps calls.
+- [x] Connect Google Maps and check public review requirements.
+- [ ] Display at least five genuine Google reviews: awaiting widget or manual-source choice because public Google calls require authentication and storing review snapshots is not permitted by Places terms.
