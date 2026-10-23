@@ -3,6 +3,7 @@ import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
 import { ImagePlus, Loader2, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { resizeImage, validateImageFile } from "@/lib/image-resize";
 import { galleryQuery } from "@/lib/gallery";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

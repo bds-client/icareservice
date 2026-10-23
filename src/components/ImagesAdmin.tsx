@@ -3,6 +3,7 @@ import { useQuery, useSuspenseQuery, useQueryClient } from "@tanstack/react-quer
 import { ImagePlus, Loader2, Save, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { resizeImage, validateImageFile } from "@/lib/image-resize";
 import { galleryQuery } from "@/lib/gallery";
 import { listSiteUploads } from "@/lib/images.functions";
 import { ASSET_IMAGE_LABELS, ASSET_IMAGES } from "@/lib/images";
