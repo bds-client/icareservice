@@ -12,10 +12,6 @@ export interface HeroContent {
   title: string;
   subtitle: string;
   branchesLine: string;
-  stat1Value: string;
-  stat1Label: string;
-  stat2Value: string;
-  stat2Label: string;
 }
 
 export interface TrustItem {
@@ -103,10 +99,6 @@ export const defaultContent: SiteContent = {
     subtitle:
       "iCare Service membantu Anda memahami pilihan penanganan, kualitas sparepart, dan biaya sebelum memutuskan servis.",
     branchesLine: "Jl. Teuku Umar No.199 & No.38 · Buka setiap hari 09.00–22.00 WITA",
-    stat1Value: "1998",
-    stat1Label: "Berpengalaman",
-    stat2Value: "7/7",
-    stat2Label: "Hari Buka",
   },
   trust: [
     { t: "Sejak 1998", d: "Bagian dari Putra Mahkota Group" },
