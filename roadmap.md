@@ -11,4 +11,5 @@
 
 # Google reviews
 - [x] Connect Google Maps and check public review requirements.
-- [ ] Display at least five genuine Google reviews: awaiting widget or manual-source choice because public Google calls require authentication and storing review snapshots is not permitted by Places terms.
+- [ ] Add CMS entry and public display for customer-authorized testimonials with original review links.
+- [ ] Verify save and public display; five real testimonials require content and permission from the user.
