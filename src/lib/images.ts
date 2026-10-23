@@ -24,7 +24,8 @@ export const ASSET_IMAGE_LABELS: Record<string, string> = {
 };
 
 function refPath(ref: string): string | null {
-  if (ref.startsWith("gallery:") || ref.startsWith("site:")) return ref.slice(ref.indexOf(":") + 1);
+  if (ref.startsWith("gallery:")) return ref.slice("gallery:".length);
+  if (ref.startsWith("site:")) return `site/${ref.slice("site:".length)}`;
   return null;
 }
 

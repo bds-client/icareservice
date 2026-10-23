@@ -94,11 +94,11 @@ export function ImagesAdmin({ content, save }: { content: SiteContent; save: (ke
     try {
       if (!extension) throw new Error("Pilih foto JPG, PNG, atau WebP.");
       if (file.size > 10 * 1024 * 1024) throw new Error("Ukuran foto maksimal 10 MB.");
-      const path = `site/${crypto.randomUUID()}.${extension}`;
-      const { error } = await supabase.storage.from("gallery").upload(path, file, { contentType: file.type });
+      const name = `${crypto.randomUUID()}.${extension}`;
+      const { error } = await supabase.storage.from("gallery").upload(`site/${name}`, file, { contentType: file.type });
       if (error) throw error;
       await qc.invalidateQueries({ queryKey: ["site-uploads"] });
-      apply(`site:${path}`);
+      apply(`site:${name}`);
       toast.success("Foto diunggah dan dipilih. Klik Simpan untuk menerapkan.");
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Gagal mengunggah foto.");
