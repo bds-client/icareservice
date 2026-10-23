@@ -22,6 +22,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { GalleryAdmin } from "@/components/GalleryAdmin";
+import { TestimonialsAdmin } from "@/components/TestimonialsAdmin";
 import { galleryQuery } from "@/lib/gallery";
 
 export const Route = createFileRoute("/_authenticated/admin")({
@@ -417,6 +418,7 @@ function Admin() {
             <TabsTrigger value="harga">Harga</TabsTrigger>
             <TabsTrigger value="cabang">Cabang</TabsTrigger>
             <TabsTrigger value="galeri">Galeri</TabsTrigger>
+            <TabsTrigger value="review">Review</TabsTrigger>
             {isAdmin && (
               <TabsTrigger value="tim">
                 <Users className="mr-1 h-4 w-4" /> Tim
@@ -446,6 +448,7 @@ function Admin() {
               <BranchesForm content={content} save={save} />
             </TabsContent>
             <TabsContent value="galeri"><GalleryAdmin /></TabsContent>
+            <TabsContent value="review"><TestimonialsAdmin /></TabsContent>
             {isAdmin && (
               <TabsContent value="tim">
                 <TeamPanel />

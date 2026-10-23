@@ -11,3 +11,4 @@
 
 - Keep self-hosted PHP exports separate from the TanStack application; assemble and test downloadable source in temporary staging so the live app remains unchanged.
 - Store gallery metadata in gallery_photos and images in the gallery Storage bucket; public SELECT and role-gated mutations preserve public viewing without public upload access. Sign private-bucket image URLs for display because workspace policy blocks public buckets.
+- Store manually entered customer-authorized testimonials in site_content; validate consent and Google Maps source links on save and public read, and never fetch or persist Google Places review responses for this workflow.

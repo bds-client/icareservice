@@ -79,8 +79,22 @@ export function BranchCards() {
 }
 
 export function ReviewSources() {
-  const { branches } = useSiteContent();
+  const { branches, testimonials } = useSiteContent();
   return (
+    <div className="space-y-10">
+      {testimonials.length > 0 && <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {testimonials.map((review, i) => <article key={`${review.name}-${i}`} className="flex min-w-0 flex-col rounded-lg border border-border bg-card p-6">
+          <div className="flex gap-1 text-primary" aria-label={`${review.rating} dari 5 bintang`}>
+            {[1,2,3,4,5].map(star => <Star key={star} className={`h-4 w-4 ${star <= review.rating ? "fill-current" : "text-muted-foreground"}`} />)}
+          </div>
+          <p className="mt-4 whitespace-pre-wrap break-words text-foreground">“{review.text}”</p>
+          <div className="mt-auto pt-6">
+            <h3 className="text-lg font-semibold break-words">{review.name}</h3>
+            <p className="mt-1 text-sm text-muted-foreground break-words">{review.branch}</p>
+            <a href={review.source} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-primary">Ulasan asli di Google Maps <ArrowUpRight className="h-4 w-4" /></a>
+          </div>
+        </article>)}
+      </div>}
     <div className="grid gap-8 md:grid-cols-2">
       {branches.map((b) => (
         <a key={b.name} href={b.maps} target="_blank" rel="noopener noreferrer"
@@ -94,6 +108,7 @@ export function ReviewSources() {
           </div>
         </a>
       ))}
+    </div>
     </div>
   );
 }

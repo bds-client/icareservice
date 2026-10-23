@@ -1,3 +1,5 @@
+import type { Testimonial } from "./testimonials";
+
 export interface GeneralContent {
   waNumber: string;
   waDisplay: string;
@@ -80,11 +82,13 @@ export interface SiteContent {
   sparepartPrices: PartItem[];
   branches: BranchItem[];
   cta: CtaContent;
+  testimonials: Testimonial[];
 }
 
 export type ContentKey = keyof SiteContent;
 
 export const defaultContent: SiteContent = {
+  testimonials: [],
   general: {
     waNumber: "6289614888888",
     waDisplay: "0896-1488-8888",

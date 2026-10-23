@@ -96,7 +96,7 @@ function Index() {
 
       <section className="mx-auto max-w-7xl px-4 py-24">
         <div className="mb-12 text-center"><Eyebrow>Review</Eyebrow><h2 className="mt-4 text-4xl font-bold md:text-5xl">Apa Kata Pelanggan</h2>
-          <p className="mx-auto mt-3 max-w-xl text-muted-foreground">Kami menampilkan ulasan langsung dari sumber aslinya di Google Maps.</p></div>
+          <p className="mx-auto mt-3 max-w-xl text-muted-foreground">Testimoni pelanggan berizin dengan tautan ulasan asli di Google Maps.</p></div>
         <ReviewSources />
       </section>
 
