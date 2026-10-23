@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { LogOut, Plus, Save, Trash2, Users } from "lucide-react";
+import logo from "@/assets/icare-logo-primary-black.png";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useSiteContent } from "@/lib/content-context";
@@ -395,9 +396,10 @@ function Admin() {
     <div className="min-h-screen bg-secondary">
       <header className="border-b border-border bg-card">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-          <h1 className="font-display text-2xl font-bold">
-            iCare<span className="text-primary"> CMS</span>
-          </h1>
+          <div className="flex items-center gap-3">
+            <img src={logo} alt="iCare Apple Service Specialist" className="h-10 w-auto max-w-[120px] object-contain" />
+            <h1 className="font-display text-xl font-bold text-primary">CMS</h1>
+          </div>
           <div className="flex items-center gap-3">
             <a href="/" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-primary hover:underline">
               Lihat Website
