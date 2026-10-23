@@ -11,5 +11,6 @@
 
 # Google reviews
 - [x] Connect Google Maps and check public review requirements.
-- [ ] Add CMS entry and public display for customer-authorized testimonials with original review links.
-- [ ] Verify save and public display; five real testimonials require content and permission from the user.
+- [x] Add CMS entry and public display for customer-authorized testimonials with original review links.
+- [x] Verify authenticated save, reject missing consent, and test five-entry handling; no fabricated reviews published.
+- [ ] Populate and verify five real testimonials publicly: waiting for customer text, original links, and permission from the user.
