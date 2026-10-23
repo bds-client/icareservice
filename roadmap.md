@@ -9,6 +9,7 @@
 - [x] Add public gallery menu and page.
 - [x] Add CMS photo upload and removal with protected storage access.
 - [x] Verify uploaded photos appear publicly and can be removed.
+- [x] Add CMS "Foto" tab to change/upload hero, about, and service images; verified end-to-end (upload, apply, restore).
 
 # Google reviews
 - [x] Connect Google Maps and check public review requirements.
