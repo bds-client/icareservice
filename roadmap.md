@@ -8,3 +8,7 @@
 - [x] Add public gallery menu and page.
 - [x] Add CMS photo upload and removal with protected storage access.
 - [x] Verify uploaded photos appear publicly and can be removed.
+
+# Google reviews
+- [x] Connect Google Maps and check public review requirements.
+- [ ] Display at least five genuine Google reviews: awaiting widget or manual-source choice because public Google calls require authentication and storing review snapshots is not permitted by Places terms.
