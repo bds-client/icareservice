@@ -91,12 +91,12 @@ export function ImagesAdmin({ content, save }: { content: SiteContent; save: (ke
   async function upload(file: File, apply: (ref: string) => void) {
     if (busy) return;
     setBusy(true);
-    const extension = ({ "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp" } as Record<string, string>)[file.type];
     try {
-      if (!extension) throw new Error("Pilih foto JPG, PNG, atau WebP.");
-      if (file.size > 10 * 1024 * 1024) throw new Error("Ukuran foto maksimal 10 MB.");
+      validateImageFile(file);
+      const resized = await resizeImage(file);
+      const extension = resized.type === "image/png" ? "png" : resized.type === "image/webp" ? "webp" : "jpg";
       const name = `${crypto.randomUUID()}.${extension}`;
-      const { error } = await supabase.storage.from("gallery").upload(`site/${name}`, file, { contentType: file.type });
+      const { error } = await supabase.storage.from("gallery").upload(`site/${name}`, resized, { contentType: resized.type });
       if (error) throw error;
       await qc.invalidateQueries({ queryKey: ["site-uploads"] });
       apply(`site:${name}`);
