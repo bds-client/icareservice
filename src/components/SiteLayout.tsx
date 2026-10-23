@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import { Mail, Phone, Smartphone, Menu, X, ArrowUpRight, MessageCircle, Clock } from "lucide-react";
+import logo from "@/assets/icare-logo-primary-black.png";
 import { waLink } from "@/lib/content";
 import { useSiteContent } from "@/lib/content-context";
 
@@ -15,12 +16,9 @@ const nav = [
 
 export function Logo({ light = false }: { light?: boolean }) {
   return (
-    <Link to="/" className="flex items-center gap-2">
-      <span className="grid h-10 w-10 place-items-center rounded-lg bg-primary text-primary-foreground">
-        <Smartphone className="h-5 w-5" />
-      </span>
-      <span className={`font-display text-2xl font-bold ${light ? "text-ink-foreground" : "text-foreground"}`}>
-        iCare<span className="text-primary"> Service</span>
+    <Link to="/" className="inline-flex items-center">
+      <span className={light ? "rounded-md bg-white px-2 py-1" : ""}>
+        <img src={logo} alt="iCare Apple Service Specialist" className="h-14 w-auto max-w-[160px] object-contain" />
       </span>
     </Link>
   );
