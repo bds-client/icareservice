@@ -135,12 +135,6 @@ function HeroForm({ content, save }: { content: SiteContent; save: ReturnType<ty
       <Field label="Judul besar" value={v.title} onChange={(x) => setV({ ...v, title: x })} multiline />
       <Field label="Deskripsi" value={v.subtitle} onChange={(x) => setV({ ...v, subtitle: x })} multiline />
       <Field label="Baris info cabang" value={v.branchesLine} onChange={(x) => setV({ ...v, branchesLine: x })} />
-      <div className="grid grid-cols-2 gap-4">
-        <Field label="Statistik 1 (angka)" value={v.stat1Value} onChange={(x) => setV({ ...v, stat1Value: x })} />
-        <Field label="Statistik 1 (label)" value={v.stat1Label} onChange={(x) => setV({ ...v, stat1Label: x })} />
-        <Field label="Statistik 2 (angka)" value={v.stat2Value} onChange={(x) => setV({ ...v, stat2Value: x })} />
-        <Field label="Statistik 2 (label)" value={v.stat2Label} onChange={(x) => setV({ ...v, stat2Label: x })} />
-      </div>
     </SectionCard>
   );
 }
