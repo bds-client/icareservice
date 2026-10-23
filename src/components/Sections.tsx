@@ -1,10 +1,12 @@
 import { ArrowUpRight, Clock, MapPin, Star, MessageSquareQuote, Wrench, Cpu } from "lucide-react";
-import { serviceImages } from "@/lib/site";
 import { useSiteContent } from "@/lib/content-context";
+import { useSiteImages } from "@/lib/images";
 import { Eyebrow, WaButton } from "./SiteLayout";
 
 export function ServicesGrid() {
   const { services } = useSiteContent();
+  const images = useSiteImages();
+  const serviceImages = images.services.length ? images.services : [""];
   return (
     <div className="grid gap-8 md:grid-cols-3">
       {services.map((s, i) => (
