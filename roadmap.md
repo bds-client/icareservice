@@ -3,6 +3,7 @@
 - [x] Add secure setup, CMS editing, images, and administrator/staff accounts.
 - [x] Test installation, login, content persistence, pages, and security checks.
 - [x] Inspect and deliver clean ZIP with Indonesian hosting instructions.
+- [x] v2: add Galeri page with photo upload/delete and 10 real testimonials with consent validation; tested and delivered as icare-service-php-cms-v2.zip.
 
 # Website gallery
 - [x] Add public gallery menu and page.
