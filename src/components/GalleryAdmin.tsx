@@ -3,6 +3,7 @@ import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
 import { ImagePlus, Loader2, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { resizeImage, validateImageFile } from "@/lib/image-resize";
 import { galleryQuery } from "@/lib/gallery";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,12 +20,12 @@ export function GalleryAdmin() {
     e.preventDefault();
     if (!file || busy) return;
     setBusy(true);
-    const extension = ({ "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp" } as Record<string, string>)[file.type];
     try {
-      if (!extension) throw new Error("Pilih foto JPG, PNG, atau WebP.");
-      if (file.size > 10 * 1024 * 1024) throw new Error("Ukuran foto maksimal 10 MB.");
+      validateImageFile(file);
+      const resized = await resizeImage(file);
+      const extension = resized.type === "image/png" ? "png" : resized.type === "image/webp" ? "webp" : "jpg";
       const path = `${crypto.randomUUID()}.${extension}`;
-      const { error: uploadError } = await supabase.storage.from("gallery").upload(path, file, { contentType: file.type });
+      const { error: uploadError } = await supabase.storage.from("gallery").upload(path, resized, { contentType: resized.type });
       if (uploadError) throw uploadError;
       const { error } = await supabase.from("gallery_photos").insert({ path, title: title.trim() || file.name.replace(/\.[^.]+$/, "") });
       if (error) {
