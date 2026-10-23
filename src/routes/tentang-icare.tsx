@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Eye, HandHeart, MessagesSquare, Wrench, type LucideIcon } from "lucide-react";
-import about from "@/assets/about.jpg";
 import { PageHero, SiteLayout } from "@/components/SiteLayout";
 import { CtaBand, Eyebrow } from "@/components/Sections";
 import { useSiteContent } from "@/lib/content-context";
+import { useSiteImages } from "@/lib/images";
 
 export const Route = createFileRoute("/tentang-icare")({
   head: () => ({
@@ -23,11 +23,12 @@ const principleIcons: LucideIcon[] = [Eye, Wrench, MessagesSquare, HandHeart];
 
 function About() {
   const { tentang: t } = useSiteContent();
+  const images = useSiteImages();
   return (
     <SiteLayout>
       <PageHero title={t.pageTitle} crumb={t.pageCrumb} />
       <section className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-24 lg:grid-cols-2">
-        <img src={about} alt="Tim iCare Service" loading="lazy" width={1200} height={1008} className="rounded-3xl shadow-xl" />
+        <img src={images.about} alt="Tim iCare Service" loading="lazy" width={1200} height={1008} className="rounded-3xl shadow-xl" />
         <div>
           <Eyebrow>{t.eyebrow}</Eyebrow>
           <h2 className="mt-4 text-4xl font-bold md:text-5xl">{t.title}</h2>

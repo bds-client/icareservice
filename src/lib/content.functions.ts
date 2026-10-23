@@ -3,6 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { defaultContent, type ContentKey, type SiteContent } from "./content";
 import { publicTestimonials, testimonialsSchema } from "./testimonials";
+import { imagesSchema } from "./image-refs";
 
 function publicClient() {
   const key = process.env["SUPABASE_PUBLISHABLE_KEY"]!;
@@ -44,7 +45,12 @@ export const saveSection = createServerFn({ method: "POST" })
   .inputValidator((input: { key: ContentKey; value: unknown }) => input)
   .handler(async ({ data, context }) => {
     if (!(await canEdit(context.supabase, context.userId))) throw new Error("Forbidden");
-    const value = data.key === "testimonials" ? testimonialsSchema.parse(data.value) : data.value;
+    const value =
+      data.key === "testimonials"
+        ? testimonialsSchema.parse(data.value)
+        : data.key === "images"
+          ? imagesSchema.parse(data.value)
+          : data.value;
     const { error } = await context.supabase
       .from("site_content")
       .upsert({ key: data.key, value: value as never, updated_at: new Date().toISOString() });

@@ -1,11 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, BadgeCheck, Eye, HandHeart, ShieldCheck, Wrench, type LucideIcon } from "lucide-react";
-import hero from "@/assets/hero.jpg";
-import about from "@/assets/about.jpg";
 import { SiteLayout, WaButton } from "@/components/SiteLayout";
 import { BranchCards, CtaBand, Eyebrow, ReviewSources, ServicesGrid } from "@/components/Sections";
 import { useSiteContent } from "@/lib/content-context";
+import { useSiteImages } from "@/lib/images";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -25,10 +24,11 @@ const trustIcons: LucideIcon[] = [BadgeCheck, Eye, Wrench, HandHeart];
 
 function Index() {
   const { hero: h, trust, about: a, general } = useSiteContent();
+  const images = useSiteImages();
   return (
     <SiteLayout>
       <section className="relative overflow-hidden">
-        <img src={hero} alt="Teknisi iCare memperbaiki iPhone" width={1920} height={1088} className="absolute inset-0 h-full w-full object-cover" />
+        <img src={images.hero} alt="Teknisi iCare memperbaiki iPhone" width={1920} height={1088} className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-hero-overlay" />
         <div className="relative mx-auto grid max-w-7xl gap-10 px-4 pb-24 pt-48 lg:grid-cols-[1.4fr_1fr] lg:items-end">
           <div className="text-ink-foreground">
@@ -84,7 +84,7 @@ function Index() {
           </ul>
           <Link to="/tentang-icare" className="mt-8 inline-flex items-center gap-2 font-semibold text-primary">Selengkapnya <ArrowUpRight className="h-4 w-4" /></Link>
         </div>
-        <img src={about} alt="Staf iCare menjelaskan pilihan servis" loading="lazy" width={1200} height={1008} className="rounded-3xl object-cover shadow-xl" />
+        <img src={images.about} alt="Staf iCare menjelaskan pilihan servis" loading="lazy" width={1200} height={1008} className="rounded-3xl object-cover shadow-xl" />
       </section>
 
       <section className="bg-secondary py-24">

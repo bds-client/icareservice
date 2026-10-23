@@ -22,6 +22,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { GalleryAdmin } from "@/components/GalleryAdmin";
+import { ImagesAdmin } from "@/components/ImagesAdmin";
 import { TestimonialsAdmin } from "@/components/TestimonialsAdmin";
 import { galleryQuery } from "@/lib/gallery";
 
@@ -215,7 +216,7 @@ function ServicesForm({ content, save }: { content: SiteContent; save: ReturnTyp
         onChange={(x) => setV(x as unknown as typeof v)}
         addLabel="Tambah layanan"
       />
-      <p className="text-sm text-muted-foreground">Foto layanan mengikuti urutan: diagnosis, layar, baterai.</p>
+      <p className="text-sm text-muted-foreground">Foto layanan diatur di tab Foto.</p>
     </SectionCard>
   );
 }
@@ -418,6 +419,7 @@ function Admin() {
             <TabsTrigger value="harga">Harga</TabsTrigger>
             <TabsTrigger value="cabang">Cabang</TabsTrigger>
             <TabsTrigger value="galeri">Galeri</TabsTrigger>
+            <TabsTrigger value="foto">Foto</TabsTrigger>
             <TabsTrigger value="review">Review</TabsTrigger>
             {isAdmin && (
               <TabsTrigger value="tim">
@@ -448,6 +450,7 @@ function Admin() {
               <BranchesForm content={content} save={save} />
             </TabsContent>
             <TabsContent value="galeri"><GalleryAdmin /></TabsContent>
+            <TabsContent value="foto"><ImagesAdmin content={content} save={save} /></TabsContent>
             <TabsContent value="review"><TestimonialsAdmin /></TabsContent>
             {isAdmin && (
               <TabsContent value="tim">
