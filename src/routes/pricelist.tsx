@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight, BadgeCheck, Check, Clock3, Laptop, ShieldCheck, Smartphone, Watch, Wrench } from "lucide-react";
 import { PageHero, SiteLayout, WaButton } from "@/components/SiteLayout";
 
@@ -23,7 +23,12 @@ const categories = [
 function Pricelist() {
   const [categoryId, setCategoryId] = useState<string | null>(null);
   const [model, setModel] = useState<string | null>(null);
+  const detailsRef = useRef<HTMLDivElement>(null);
   const activeCategory = categories.find((category) => category.id === categoryId);
+
+  useEffect(() => {
+    if (activeCategory) detailsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [activeCategory]);
 
   function chooseCategory(id: string) {
     setCategoryId(id);
@@ -55,7 +60,7 @@ function Pricelist() {
         </div>
 
         {activeCategory && (
-          <div className="mt-12 scroll-mt-8 rounded-3xl border bg-card p-5 shadow-sm md:p-8">
+          <div ref={detailsRef} className="mt-12 scroll-mt-8 rounded-3xl border bg-card p-5 shadow-sm md:p-8">
             <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
               <div><p className="text-sm font-semibold uppercase tracking-wider text-primary">Pricelist {activeCategory.name}</p><h3 className="mt-1 text-2xl font-bold">Pilih model perangkat</h3></div>
               <p className="text-sm text-muted-foreground">Harga sementara ditampilkan sebagai konsultasi langsung.</p>
