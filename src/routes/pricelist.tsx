@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, BadgeCheck, Check, Clock3, Laptop, ShieldCheck, Smartphone, Watch, Wrench } from "lucide-react";
 import { PageHero, SiteLayout, WaButton } from "@/components/SiteLayout";
+import { useSiteContent } from "@/lib/content-context";
 
 export const Route = createFileRoute("/pricelist")({
   head: () => ({
@@ -13,18 +14,15 @@ export const Route = createFileRoute("/pricelist")({
   component: Pricelist,
 });
 
-const categories = [
-  { id: "iphone", name: "iPhone", Icon: Smartphone, description: "Servis layar, baterai, kamera, dan lainnya.", models: ["iPhone 16 Pro Max", "iPhone 16 Pro", "iPhone 16", "iPhone 15 Pro Max", "iPhone 15 Pro", "iPhone 15", "iPhone 14 Pro Max", "iPhone 14 Pro", "iPhone 14", "iPhone 13 Pro Max", "iPhone 13 Pro", "iPhone 13", "iPhone 12 Series", "iPhone 11 Series", "iPhone X Series", "iPhone 8 Series"], services: ["Ganti layar", "Ganti baterai", "Ganti kamera", "Perbaikan charging", "Perbaikan speaker", "Perbaikan software"], parts: ["OEM / kompatibel", "Original copotan", "Original service pack"] },
-  { id: "watch", name: "Apple Watch", Icon: Watch, description: "Pemeriksaan dan perbaikan Apple Watch.", models: ["Apple Watch Ultra 2", "Apple Watch Ultra", "Apple Watch Series 10", "Apple Watch Series 9", "Apple Watch Series 8", "Apple Watch Series 7", "Apple Watch SE (Gen 2)", "Apple Watch SE"], services: ["Ganti layar", "Ganti baterai", "Perbaikan crown / tombol", "Pemeriksaan unit"], parts: ["Kompatibel", "Original copotan"] },
-  { id: "ipad", name: "iPad", Icon: Smartphone, description: "Servis iPad untuk kebutuhan kerja dan harian.", models: ["iPad Pro 13-inch (M4)", "iPad Pro 11-inch (M4)", "iPad Pro 12.9-inch", "iPad Pro 11-inch", "iPad Air 13-inch", "iPad Air 11-inch", "iPad Air", "iPad mini", "iPad"], services: ["Ganti layar / LCD", "Ganti baterai", "Perbaikan charging", "Perbaikan kamera", "Perbaikan software"], parts: ["OEM / kompatibel", "Original copotan", "Original service pack"] },
-  { id: "macbook", name: "MacBook", Icon: Laptop, description: "Pemeriksaan dan servis MacBook.", models: ["MacBook Pro 16-inch (Apple silicon)", "MacBook Pro 14-inch (Apple silicon)", "MacBook Pro 13-inch", "MacBook Air 15-inch", "MacBook Air 13-inch", "MacBook Air (Intel)"], services: ["Ganti layar", "Ganti baterai", "Perbaikan keyboard", "Perbaikan logic board", "Pembersihan dan perawatan", "Instal ulang macOS"], parts: ["Kompatibel", "Original copotan", "Original service pack"] },
-] as const;
-
 function Pricelist() {
+  const { pricelist } = useSiteContent();
   const [categoryId, setCategoryId] = useState<string | null>(null);
   const [model, setModel] = useState<string | null>(null);
+  const [serviceName, setServiceName] = useState<string | null>(null);
   const detailsRef = useRef<HTMLDivElement>(null);
-  const activeCategory = categories.find((category) => category.id === categoryId);
+  const activeCategory = pricelist.find((category) => category.id === categoryId);
+  const activeModel = activeCategory?.models.find((item) => item.name === model);
+  const activeService = activeModel?.services.find((service) => service.name === serviceName) ?? activeModel?.services[0];
 
   useEffect(() => {
     if (activeCategory) detailsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -33,6 +31,7 @@ function Pricelist() {
   function chooseCategory(id: string) {
     setCategoryId(id);
     setModel(null);
+    setServiceName(null);
   }
 
   return (
@@ -46,8 +45,9 @@ function Pricelist() {
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {categories.map(({ id, name, Icon, description }) => {
+          {pricelist.map(({ id, name, description }) => {
             const selected = categoryId === id;
+            const Icon = id === "watch" ? Watch : id === "macbook" ? Laptop : Smartphone;
             return (
               <button key={id} type="button" onClick={() => chooseCategory(id)} aria-pressed={selected}
                 className={`group min-h-52 rounded-3xl border p-6 text-left shadow-sm backdrop-blur-xl transition duration-200 hover:-translate-y-1 hover:shadow-xl ${selected ? "border-primary bg-white/95 ring-2 ring-primary/20" : "border-white/80 bg-white/75 hover:border-primary/40"}`}>
@@ -67,31 +67,32 @@ function Pricelist() {
             </div>
             <div className="mt-6 flex flex-wrap gap-2">
               {activeCategory.models.map((item) => (
-                <button key={item} type="button" onClick={() => setModel(item)} aria-pressed={model === item}
-                  className={`rounded-full border px-4 py-2 text-sm font-medium transition ${model === item ? "border-primary bg-primary text-primary-foreground" : "bg-background hover:border-primary hover:text-primary"}`}>
-                  {item}
+                <button key={item.name} type="button" onClick={() => { setModel(item.name); setServiceName(item.services[0]?.name ?? null); }} aria-pressed={model === item.name}
+                  className={`rounded-full border px-4 py-2 text-sm font-medium transition ${model === item.name ? "border-primary bg-primary text-primary-foreground" : "bg-background hover:border-primary hover:text-primary"}`}>
+                  {item.name}
                 </button>
               ))}
             </div>
 
-            {model && (
+            {activeModel && (
               <div className="mt-8 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
                 <div className="rounded-2xl border bg-background p-5 md:p-6">
-                  <div className="flex flex-wrap items-start justify-between gap-3 border-b pb-4"><div><p className="text-sm text-muted-foreground">Estimasi servis untuk</p><h4 className="mt-1 text-xl font-bold">{model}</h4></div><span className="rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold text-primary">Hubungi untuk harga</span></div>
+                  <div className="flex flex-wrap items-start justify-between gap-3 border-b pb-4"><div><p className="text-sm text-muted-foreground">Estimasi servis untuk</p><h4 className="mt-1 text-xl font-bold">{activeModel.name}</h4></div></div>
                   <h5 className="mb-3 mt-5 font-semibold">Jenis service</h5>
                   <div className="divide-y rounded-xl border">
-                    {activeCategory.services.map((service) => <div key={service} className="flex items-center justify-between gap-4 px-4 py-3"><span className="text-sm">{service}</span><span className="shrink-0 text-sm font-semibold text-primary">Hubungi kami</span></div>)}
+                    {activeModel.services.map((service) => <button key={service.name} type="button" onClick={() => setServiceName(service.name)} aria-pressed={activeService?.name === service.name} className={`flex w-full items-center justify-between gap-4 px-4 py-3 text-left ${activeService?.name === service.name ? "bg-primary/5" : "hover:bg-secondary"}`}><span className="text-sm">{service.name}</span><span className="shrink-0 text-sm font-semibold text-primary">{service.price || "Hubungi untuk harga"}</span></button>)}
                   </div>
+                  {activeService && <p className="mt-3 text-sm text-muted-foreground">Harga bersifat estimasi dan dikonfirmasi setelah pemeriksaan perangkat.</p>}
                 </div>
                 <aside className="space-y-4">
                   <div className="rounded-2xl border bg-background p-5">
                     <h5 className="font-semibold">Pilihan sparepart</h5>
-                    <ul className="mt-3 space-y-2">{activeCategory.parts.map((part) => <li key={part} className="flex items-center gap-2 text-sm text-muted-foreground"><BadgeCheck className="h-4 w-4 shrink-0 text-primary" />{part}</li>)}</ul>
+                    <ul className="mt-3 space-y-2">{(activeService?.parts ?? "").split(/\n|,/).map((part) => part.trim()).filter(Boolean).map((part) => <li key={part} className="flex items-center gap-2 text-sm text-muted-foreground"><BadgeCheck className="h-4 w-4 shrink-0 text-primary" />{part}</li>)}</ul>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
-                    <div className="rounded-2xl border bg-background p-4"><Wrench className="h-5 w-5 text-primary" /><p className="mt-3 text-sm text-muted-foreground">Ongkos pasang</p><p className="font-semibold">Gratis</p></div>
-                    <div className="rounded-2xl border bg-background p-4"><Clock3 className="h-5 w-5 text-primary" /><p className="mt-3 text-sm text-muted-foreground">Estimasi waktu</p><p className="font-semibold">Konfirmasi teknisi</p></div>
-                    <div className="col-span-2 rounded-2xl border bg-background p-4"><ShieldCheck className="h-5 w-5 text-primary" /><p className="mt-3 text-sm text-muted-foreground">Garansi</p><p className="font-semibold">Dijelaskan sebelum pengerjaan</p></div>
+                    <div className="rounded-2xl border bg-background p-4"><Wrench className="h-5 w-5 text-primary" /><p className="mt-3 text-sm text-muted-foreground">Ongkos pasang</p><p className="font-semibold">{activeService?.installCost || "Gratis"}</p></div>
+                    <div className="rounded-2xl border bg-background p-4"><Clock3 className="h-5 w-5 text-primary" /><p className="mt-3 text-sm text-muted-foreground">Estimasi waktu</p><p className="font-semibold">{activeService?.estimate || "Konfirmasi teknisi"}</p></div>
+                    <div className="col-span-2 rounded-2xl border bg-background p-4"><ShieldCheck className="h-5 w-5 text-primary" /><p className="mt-3 text-sm text-muted-foreground">Garansi</p><p className="font-semibold">{activeService?.warranty || "Dikonfirmasi sebelum pengerjaan"}</p></div>
                   </div>
                 </aside>
               </div>
