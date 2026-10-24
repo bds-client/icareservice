@@ -1,5 +1,6 @@
 import type { Testimonial } from "./testimonials";
 import { defaultImages, type ImagesContent } from "./image-refs";
+import { defaultPricelist, type PriceCategory } from "./pricelist";
 
 export interface GeneralContent {
   waNumber: string;
@@ -77,6 +78,7 @@ export interface SiteContent {
   services: ServiceItem[];
   serviceFees: FeeItem[];
   sparepartPrices: PartItem[];
+  pricelist: PriceCategory[];
   branches: BranchItem[];
   cta: CtaContent;
   testimonials: Testimonial[];
@@ -165,6 +167,7 @@ export const defaultContent: SiteContent = {
     { part: "Speaker / Ear Speaker", price: "Rp 300.000" },
     { part: "Tombol Home / Power", price: "Rp 250.000" },
   ],
+  pricelist: defaultPricelist,
   branches: [
     {
       name: "iCare Service Denpasar 1",
