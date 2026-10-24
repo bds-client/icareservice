@@ -76,16 +76,18 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               ))}
             </nav>
             <WaButton className="hidden lg:inline-flex">Konsultasi</WaButton>
-            <button aria-label="Menu" className="lg:hidden" onClick={() => setOpen(!open)}>
-              {open ? <X /> : <Menu />}
-            </button>
+            <div className="flex items-center gap-2 lg:hidden">
+              <WaButton className="px-4 py-2 text-sm">Konsultasi</WaButton>
+              <button aria-label="Menu" className="grid h-11 w-11 place-items-center rounded-full border border-border" onClick={() => setOpen(!open)}>
+                {open ? <X /> : <Menu />}
+              </button>
+            </div>
           </div>
           {open && (
             <div className="mt-2 rounded-2xl bg-background p-4 shadow-lg lg:hidden">
               {nav.map((n) => (
                 <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="block py-3 font-medium">{n.label}</Link>
               ))}
-              <WaButton className="mt-2 w-full justify-center" />
             </div>
           )}
         </div>
