@@ -15,6 +15,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as GaleriRouteImport } from './routes/galeri'
 import { Route as KebijakanPrivasiRouteImport } from './routes/kebijakan-privasi'
 import { Route as LayananRouteImport } from './routes/layanan'
+import { Route as PricelistRouteImport } from './routes/pricelist'
 import { Route as LokasiKontakRouteImport } from './routes/lokasi-kontak'
 import { Route as ReviewRouteImport } from './routes/review'
 import { Route as TentangIcareRouteImport } from './routes/tentang-icare'
@@ -49,6 +50,11 @@ const LayananRoute = LayananRouteImport.update({
   path: '/layanan',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PricelistRoute = PricelistRouteImport.update({
+  id: '/pricelist',
+  path: '/pricelist',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LokasiKontakRoute = LokasiKontakRouteImport.update({
   id: '/lokasi-kontak',
   path: '/lokasi-kontak',
@@ -76,6 +82,7 @@ export interface FileRoutesByFullPath {
   '/galeri': typeof GaleriRoute
   '/kebijakan-privasi': typeof KebijakanPrivasiRoute
   '/layanan': typeof LayananRoute
+  '/pricelist': typeof PricelistRoute
   '/lokasi-kontak': typeof LokasiKontakRoute
   '/review': typeof ReviewRoute
   '/tentang-icare': typeof TentangIcareRoute
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/galeri': typeof GaleriRoute
   '/kebijakan-privasi': typeof KebijakanPrivasiRoute
   '/layanan': typeof LayananRoute
+  '/pricelist': typeof PricelistRoute
   '/lokasi-kontak': typeof LokasiKontakRoute
   '/review': typeof ReviewRoute
   '/tentang-icare': typeof TentangIcareRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   '/galeri': typeof GaleriRoute
   '/kebijakan-privasi': typeof KebijakanPrivasiRoute
   '/layanan': typeof LayananRoute
+  '/pricelist': typeof PricelistRoute
   '/lokasi-kontak': typeof LokasiKontakRoute
   '/review': typeof ReviewRoute
   '/tentang-icare': typeof TentangIcareRoute
@@ -113,6 +122,7 @@ export interface FileRouteTypes {
     | '/galeri'
     | '/kebijakan-privasi'
     | '/layanan'
+    | '/pricelist'
     | '/lokasi-kontak'
     | '/review'
     | '/tentang-icare'
@@ -124,6 +134,7 @@ export interface FileRouteTypes {
     | '/galeri'
     | '/kebijakan-privasi'
     | '/layanan'
+    | '/pricelist'
     | '/lokasi-kontak'
     | '/review'
     | '/tentang-icare'
@@ -136,6 +147,7 @@ export interface FileRouteTypes {
     | '/galeri'
     | '/kebijakan-privasi'
     | '/layanan'
+    | '/pricelist'
     | '/lokasi-kontak'
     | '/review'
     | '/tentang-icare'
@@ -149,6 +161,7 @@ export interface RootRouteChildren {
   GaleriRoute: typeof GaleriRoute
   KebijakanPrivasiRoute: typeof KebijakanPrivasiRoute
   LayananRoute: typeof LayananRoute
+  PricelistRoute: typeof PricelistRoute
   LokasiKontakRoute: typeof LokasiKontakRoute
   ReviewRoute: typeof ReviewRoute
   TentangIcareRoute: typeof TentangIcareRoute
@@ -196,6 +209,13 @@ declare module '@tanstack/react-router' {
       path: '/layanan'
       fullPath: '/layanan'
       preLoaderRoute: typeof LayananRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricelist': {
+      id: '/pricelist'
+      path: '/pricelist'
+      fullPath: '/pricelist'
+      preLoaderRoute: typeof PricelistRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lokasi-kontak': {
@@ -247,6 +267,7 @@ const rootRouteChildren: RootRouteChildren = {
   GaleriRoute: GaleriRoute,
   KebijakanPrivasiRoute: KebijakanPrivasiRoute,
   LayananRoute: LayananRoute,
+  PricelistRoute: PricelistRoute,
   LokasiKontakRoute: LokasiKontakRoute,
   ReviewRoute: ReviewRoute,
   TentangIcareRoute: TentangIcareRoute,
