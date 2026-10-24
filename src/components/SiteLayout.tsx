@@ -107,7 +107,6 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             <ul className="mt-4 space-y-2 text-sm opacity-80">
               {nav.map((n) => <li key={n.to}><Link to={n.to} className="hover:text-primary">{n.label}</Link></li>)}
               <li><Link to="/kebijakan-privasi" className="hover:text-primary">Kebijakan Privasi</Link></li>
-              <li><Link to="/auth" className="hover:text-primary">Login Admin</Link></li>
             </ul>
           </div>
           <div>
