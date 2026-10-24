@@ -75,9 +75,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                   activeProps={{ className: "text-primary" }}>{n.label}</Link>
               ))}
             </nav>
-            <WaButton className="hidden lg:inline-flex">Konsultasi</WaButton>
-            <div className="flex items-center gap-2 lg:hidden">
-              <WaButton className="px-4 py-2 text-sm">Konsultasi</WaButton>
+            <div className="ml-auto flex items-center gap-2 lg:ml-0">
+              <WaButton className="px-4 py-2 text-sm md:px-6 md:py-3 md:text-base">Konsultasi</WaButton>
               <button aria-label="Menu" className="grid h-11 w-11 place-items-center rounded-full border border-border" onClick={() => setOpen(!open)}>
                 {open ? <X /> : <Menu />}
               </button>
