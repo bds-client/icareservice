@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useSiteContent } from "@/lib/content-context";
 import type { ContentKey, SiteContent } from "@/lib/content";
+import type { PriceCategory, PriceModel } from "@/lib/pricelist";
 import {
   createTeamUser,
   deleteTeamUser,
@@ -135,6 +136,73 @@ function HeroForm({ content, save }: { content: SiteContent; save: ReturnType<ty
       <Field label="Judul besar" value={v.title} onChange={(x) => setV({ ...v, title: x })} multiline />
       <Field label="Deskripsi" value={v.subtitle} onChange={(x) => setV({ ...v, subtitle: x })} multiline />
       <Field label="Baris info cabang" value={v.branchesLine} onChange={(x) => setV({ ...v, branchesLine: x })} />
+    </SectionCard>
+  );
+}
+
+function PricelistForm({ content, save }: { content: SiteContent; save: ReturnType<typeof useSaver> }) {
+  const [categories, setCategories] = useState(content.pricelist);
+
+  const updateCategory = (index: number, patch: Partial<PriceCategory>) => {
+    setCategories((current) => current.map((category, i) => i === index ? { ...category, ...patch } : category));
+  };
+  const updateModel = (categoryIndex: number, modelIndex: number, next: PriceModel) => {
+    const category = categories[categoryIndex];
+    if (!category) return;
+    updateCategory(categoryIndex, { models: category.models.map((model, i) => i === modelIndex ? next : model) });
+  };
+
+  return (
+    <SectionCard title="Editor Pricelist" onSave={() => save("pricelist", categories)}>
+      <p className="text-sm text-muted-foreground">Atur kategori, model, jenis servis, harga, opsi sparepart, ongkos pasang, estimasi, dan garansi. Pisahkan setiap opsi sparepart dengan baris baru.</p>
+      <div className="space-y-4">
+        {categories.map((category, categoryIndex) => (
+          <details key={category.id} open className="rounded-xl border border-border bg-background p-4">
+            <summary className="cursor-pointer font-semibold">{category.name || "Kategori baru"} · {category.models.length} model</summary>
+            <div className="mt-4 space-y-4">
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field label="Nama kategori" value={category.name} onChange={(name) => updateCategory(categoryIndex, { name })} />
+                <Field label="Deskripsi kategori" value={category.description} onChange={(description) => updateCategory(categoryIndex, { description })} />
+              </div>
+              <div className="space-y-3">
+                {category.models.map((model, modelIndex) => (
+                  <details key={`${category.id}-${modelIndex}`} className="rounded-xl border border-border p-4">
+                    <summary className="cursor-pointer font-medium">{model.name || "Model baru"} · {model.services.length} jenis servis</summary>
+                    <div className="mt-4 space-y-4">
+                      <div className="flex items-end gap-3">
+                        <div className="flex-1"><Field label="Nama model" value={model.name} onChange={(name) => updateModel(categoryIndex, modelIndex, { ...model, name })} /></div>
+                        <Button type="button" variant="outline" size="icon" aria-label="Hapus model" onClick={() => updateCategory(categoryIndex, { models: category.models.filter((_, i) => i !== modelIndex) })}><Trash2 className="h-4 w-4" /></Button>
+                      </div>
+                      <ListEditor
+                        items={model.services}
+                        fields={[
+                          { key: "name", label: "Jenis service" },
+                          { key: "price", label: "Harga" },
+                          { key: "parts", label: "Pilihan sparepart (satu per baris)", multiline: true },
+                          { key: "installCost", label: "Ongkos pasang" },
+                          { key: "estimate", label: "Estimasi waktu" },
+                          { key: "warranty", label: "Garansi", multiline: true },
+                        ]}
+                        onChange={(services) => updateModel(categoryIndex, modelIndex, { ...model, services })}
+                        addLabel="Tambah jenis service"
+                      />
+                    </div>
+                  </details>
+                ))}
+              </div>
+              <Button type="button" variant="outline" onClick={() => updateCategory(categoryIndex, { models: [...category.models, { name: "Model baru", services: [] }] })}>
+                <Plus className="mr-2 h-4 w-4" /> Tambah model
+              </Button>
+              <Button type="button" variant="outline" className="ml-2 text-destructive" onClick={() => setCategories((current) => current.filter((_, i) => i !== categoryIndex))}>
+                <Trash2 className="mr-2 h-4 w-4" /> Hapus kategori
+              </Button>
+            </div>
+          </details>
+        ))}
+      </div>
+      <Button type="button" variant="outline" onClick={() => setCategories((current) => [...current, { id: `kategori-${Date.now()}`, name: "Kategori baru", description: "", models: [] }])}>
+        <Plus className="mr-2 h-4 w-4" /> Tambah kategori
+      </Button>
     </SectionCard>
   );
 }
@@ -413,6 +481,7 @@ function Admin() {
             <TabsTrigger value="tentang">Tentang</TabsTrigger>
             <TabsTrigger value="layanan">Layanan</TabsTrigger>
             <TabsTrigger value="harga">Harga</TabsTrigger>
+            <TabsTrigger value="pricelist">Pricelist</TabsTrigger>
             <TabsTrigger value="cabang">Cabang</TabsTrigger>
             <TabsTrigger value="galeri">Galeri</TabsTrigger>
             <TabsTrigger value="foto">Foto</TabsTrigger>
@@ -441,6 +510,9 @@ function Admin() {
             </TabsContent>
             <TabsContent value="harga">
               <FeesForm content={content} save={save} />
+            </TabsContent>
+            <TabsContent value="pricelist">
+              <PricelistForm content={content} save={save} />
             </TabsContent>
             <TabsContent value="cabang">
               <BranchesForm content={content} save={save} />
