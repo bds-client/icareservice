@@ -62,42 +62,44 @@ function Pricelist() {
         </div>
 
         {selectedService && (
-          <div className="overflow-hidden rounded-[1.5rem] border-[3px] border-[#3b2418] bg-[#f0ebdf] p-2 shadow-xl md:p-3">
-            <div className="overflow-x-auto rounded-[1rem]">
-              <table className="w-full min-w-[760px] border-separate border-spacing-y-1 text-left text-sm text-[#3b2418] md:text-base">
-                <thead>
-                  <tr className="bg-[#3b2418] text-[#f4eee2]">
-                    <th scope="col" className="rounded-l-xl px-4 py-4 font-bold md:px-5">Model iPhone</th>
-                    {priceTiers.map((tier) => (
-                      <th key={tier.id} scope="col" className="border-l border-[#d4c5ad]/70 px-3 py-3 text-center md:px-5">
-                        <span className="block font-semibold">{tier.heading}</span>
-                        <span className="block font-bold">{tier.duration}</span>
-                        <span className="block text-xs font-normal opacity-85">{tier.quality}</span>
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {[...grouped.entries()].map(([model, prices]) => (
-                    <tr key={model}>
-                      <th scope="row" className="whitespace-nowrap px-4 py-2.5 font-bold md:px-5">{model}</th>
+          <>
+            <p className="mb-2 px-1 text-xs text-[#604b3c] md:hidden">Geser tabel ke samping untuk melihat semua kolom.</p>
+            <div className="overflow-hidden rounded-[1.5rem] border-[3px] border-[#3b2418] bg-[#f0ebdf] p-2 shadow-xl md:p-3">
+              <div className="overflow-x-auto rounded-[1rem]">
+                <table className="w-full min-w-[760px] border-separate border-spacing-y-1 text-left text-sm text-[#3b2418] md:text-base">
+                  <thead>
+                    <tr className="bg-[#3b2418] text-[#f4eee2]">
+                      <th scope="col" className="rounded-l-xl px-4 py-4 font-bold md:px-5">Model iPhone</th>
                       {priceTiers.map((tier) => (
-                        <td key={tier.id} className="px-3 py-2.5 text-center md:px-5">
-                          <span className="inline-flex min-w-24 justify-center rounded-full border border-[#5a4030] px-4 py-1.5 font-bold">
-                            {prices[tier.id] || "-"}
-                          </span>
-                        </td>
+                        <th key={tier.id} scope="col" className="border-l border-[#d4c5ad]/70 px-3 py-3 text-center md:px-5">
+                          <span className="block font-semibold">{tier.heading}</span>
+                          <span className="block font-bold">{tier.duration}</span>
+                          <span className="block text-xs font-normal opacity-85">{tier.quality}</span>
+                        </th>
                       ))}
                     </tr>
-                  ))}
-                  {grouped.size === 0 && (
-                    <tr><td colSpan={4} className="px-5 py-8 text-center text-[#604b3c]">Harga akan segera tersedia.</td></tr>
-                  )}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {[...grouped.entries()].map(([model, prices]) => (
+                      <tr key={model}>
+                        <th scope="row" className="whitespace-nowrap px-4 py-2.5 font-bold md:px-5">{model}</th>
+                        {priceTiers.map((tier) => (
+                          <td key={tier.id} className="px-3 py-2.5 text-center md:px-5">
+                            <span className="inline-flex min-w-24 justify-center rounded-full border border-[#5a4030] px-4 py-1.5 font-bold">
+                              {prices[tier.id] || "-"}
+                            </span>
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                    {grouped.size === 0 && (
+                      <tr><td colSpan={4} className="px-5 py-8 text-center text-[#604b3c]">Harga akan segera tersedia.</td></tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <p className="px-3 pb-2 pt-4 text-xs text-[#604b3c]">Harga mengikuti pilihan kualitas dan garansi. Geser tabel ke samping pada layar kecil untuk melihat semua kolom.</p>
-          </div>
+          </>
         )}
       </section>
       <CtaBand />
