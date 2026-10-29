@@ -77,17 +77,18 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                   activeProps={{ className: "text-primary" }}>{n.label}</Link>
               ))}
             </nav>
-            <WaButton className="hidden lg:inline-flex">Konsultasi</WaButton>
-            <button aria-label="Menu" className="lg:hidden" onClick={() => setOpen(!open)}>
-              {open ? <X /> : <Menu />}
-            </button>
+            <div className="ml-auto flex shrink-0 items-center gap-2 lg:ml-0">
+              <WaButton className="px-3 py-2 text-xs sm:px-5 sm:text-sm">Konsultasi</WaButton>
+              <button type="button" aria-label="Menu" aria-expanded={open} className="grid h-10 w-10 place-items-center rounded-full border border-border lg:hidden" onClick={() => setOpen(!open)}>
+                {open ? <X /> : <Menu />}
+              </button>
+            </div>
           </div>
           {open && (
             <div className="mt-2 rounded-2xl bg-background p-4 shadow-lg lg:hidden">
               {nav.map((n) => (
                 <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="block py-3 font-medium">{n.label}</Link>
               ))}
-              <WaButton className="mt-2 w-full justify-center" />
             </div>
           )}
         </div>
@@ -108,7 +109,6 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             <ul className="mt-4 space-y-2 text-sm opacity-80">
               {nav.map((n) => <li key={n.to}><Link to={n.to} className="hover:text-primary">{n.label}</Link></li>)}
               <li><Link to="/kebijakan-privasi" className="hover:text-primary">Kebijakan Privasi</Link></li>
-              <li><Link to="/auth" className="hover:text-primary">Login Admin</Link></li>
             </ul>
           </div>
           <div>
