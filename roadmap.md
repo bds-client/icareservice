@@ -16,3 +16,5 @@
 - [x] Add CMS entry and public display for customer-authorized testimonials with original review links.
 - [x] Verify authenticated save, reject missing consent, and test five-entry handling; no fabricated reviews published.
 - [ ] Populate and verify five real testimonials publicly: waiting for customer text, original links, and permission from the user.
+# Pricelist page
+- [ ] Rebuild /pricelist: pick device category (iPhone, Apple Watch, iPad, MacBook) → pick service type → single vertical table (Model | Garansi/Kualitas | Harga) below; responsive, "Hubungi untuk harga" when no price; no image/category cards.
