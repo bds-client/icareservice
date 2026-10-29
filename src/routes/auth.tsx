@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import logo from "@/assets/icare-logo-primary-black.png";
+import { Smartphone } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -52,9 +52,13 @@ function AuthPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-secondary px-4">
       <div className="w-full max-w-md rounded-3xl border border-border bg-card p-8 shadow-xl">
-        <div className="mb-8 flex items-center gap-3">
-          <img src={logo} alt="iCare Apple Service Specialist" className="h-14 w-auto max-w-[160px] object-contain" />
-          <span className="rounded-full bg-primary px-3 py-1 text-sm font-semibold text-primary-foreground">Admin</span>
+        <div className="mb-8 flex items-center gap-2">
+          <span className="grid h-10 w-10 place-items-center rounded-lg bg-primary text-primary-foreground">
+            <Smartphone className="h-5 w-5" />
+          </span>
+          <span className="font-display text-2xl font-bold">
+            iCare<span className="text-primary"> Admin</span>
+          </span>
         </div>
 
         <h1 className="text-2xl font-bold">{mode === "login" ? "Masuk ke CMS" : "Daftar Akun"}</h1>

@@ -46,6 +46,14 @@ function Index() {
               <p className="font-display text-xl font-semibold">2 Cabang di Denpasar</p>
               <p className="mt-1 text-sm opacity-80">{h.branchesLine}</p>
             </div>
+            <div className="glass rounded-2xl p-6 text-center">
+              <p className="font-display text-5xl font-bold text-primary">{h.stat1Value}</p>
+              <p className="font-display text-lg">{h.stat1Label}</p>
+            </div>
+            <div className="glass rounded-2xl p-6 text-center">
+              <p className="font-display text-5xl font-bold text-primary">{h.stat2Value}</p>
+              <p className="font-display text-lg">{h.stat2Label}</p>
+            </div>
           </div>
         </div>
       </section>

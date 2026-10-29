@@ -4,6 +4,7 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { defaultContent, type ContentKey, type SiteContent } from "./content";
 import { publicTestimonials, testimonialsSchema } from "./testimonials";
 import { imagesSchema } from "./image-refs";
+import { pricelistSchema } from "./pricelist";
 
 function publicClient() {
   const key = process.env["SUPABASE_PUBLISHABLE_KEY"]!;
@@ -50,7 +51,9 @@ export const saveSection = createServerFn({ method: "POST" })
         ? testimonialsSchema.parse(data.value)
         : data.key === "images"
           ? imagesSchema.parse(data.value)
-          : data.value;
+          : data.key === "pricelist"
+            ? pricelistSchema.parse(data.value)
+            : data.value;
     const { error } = await context.supabase
       .from("site_content")
       .upsert({ key: data.key, value: value as never, updated_at: new Date().toISOString() });

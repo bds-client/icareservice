@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import { Mail, Phone, Smartphone, Menu, X, ArrowUpRight, MessageCircle, Clock } from "lucide-react";
-import logo from "@/assets/icare-logo-primary-black.png";
 import { waLink } from "@/lib/content";
 import { useSiteContent } from "@/lib/content-context";
 
@@ -17,9 +16,12 @@ const nav = [
 
 export function Logo({ light = false }: { light?: boolean }) {
   return (
-    <Link to="/" className="inline-flex items-center">
-      <span className={light ? "rounded-md bg-white px-2 py-1" : ""}>
-        <img src={logo} alt="iCare Apple Service Specialist" className="h-14 w-auto max-w-[160px] object-contain" />
+    <Link to="/" className="flex items-center gap-2">
+      <span className="grid h-10 w-10 place-items-center rounded-lg bg-primary text-primary-foreground">
+        <Smartphone className="h-5 w-5" />
+      </span>
+      <span className={`font-display text-2xl font-bold ${light ? "text-ink-foreground" : "text-foreground"}`}>
+        iCare<span className="text-primary"> Service</span>
       </span>
     </Link>
   );
@@ -75,18 +77,17 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                   activeProps={{ className: "text-primary" }}>{n.label}</Link>
               ))}
             </nav>
-            <div className="ml-auto flex items-center gap-2 lg:ml-0">
-              <WaButton className="px-4 py-2 text-sm md:px-6 md:py-3 md:text-base">Konsultasi</WaButton>
-              <button aria-label="Menu" className="grid h-11 w-11 place-items-center rounded-full border border-border" onClick={() => setOpen(!open)}>
-                {open ? <X /> : <Menu />}
-              </button>
-            </div>
+            <WaButton className="hidden lg:inline-flex">Konsultasi</WaButton>
+            <button aria-label="Menu" className="lg:hidden" onClick={() => setOpen(!open)}>
+              {open ? <X /> : <Menu />}
+            </button>
           </div>
           {open && (
             <div className="mt-2 rounded-2xl bg-background p-4 shadow-lg lg:hidden">
               {nav.map((n) => (
                 <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="block py-3 font-medium">{n.label}</Link>
               ))}
+              <WaButton className="mt-2 w-full justify-center" />
             </div>
           )}
         </div>
@@ -107,6 +108,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             <ul className="mt-4 space-y-2 text-sm opacity-80">
               {nav.map((n) => <li key={n.to}><Link to={n.to} className="hover:text-primary">{n.label}</Link></li>)}
               <li><Link to="/kebijakan-privasi" className="hover:text-primary">Kebijakan Privasi</Link></li>
+              <li><Link to="/auth" className="hover:text-primary">Login Admin</Link></li>
             </ul>
           </div>
           <div>

@@ -1,74 +1,77 @@
-export interface PriceService {
-  name: string;
+import { z } from "zod";
+
+export interface PricelistRow {
+  model: string;
+  quality: string;
   price: string;
-  parts: string;
-  installCost: string;
-  estimate: string;
-  warranty: string;
 }
 
-export interface PriceModel {
+export interface PricelistService {
   name: string;
-  services: PriceService[];
+  rows: PricelistRow[];
 }
 
-export interface PriceCategory {
-  id: string;
+export interface PricelistCategory {
   name: string;
-  description: string;
-  models: PriceModel[];
+  services: PricelistService[];
 }
 
-const defaultOptions = {
-  price: "Hubungi untuk harga",
-  parts: "OEM / kompatibel\nOriginal copotan\nOriginal service pack",
-  installCost: "Gratis",
-  estimate: "Konfirmasi teknisi",
-  warranty: "Dikonfirmasi sebelum pengerjaan",
-};
+export const pricelistSchema: z.ZodType<PricelistCategory[]> = z.array(
+  z.object({
+    name: z.string().max(100),
+    services: z.array(
+      z.object({
+        name: z.string().max(100),
+        rows: z.array(
+          z.object({
+            model: z.string().max(200),
+            quality: z.string().max(300),
+            price: z.string().max(100),
+          }),
+        ),
+      }),
+    ),
+  }),
+);
 
-function makeModels(names: string[], serviceNames: string[]): PriceModel[] {
-  return names.map((name) => ({
-    name,
-    services: serviceNames.map((service) => ({ name: service, ...defaultOptions })),
-  }));
-}
+const QUALITY_DEFAULT = "Garansi hingga 36 bulan · Gratis ongkos pasang · Pengerjaan mulai 30 menit";
 
-export const defaultPricelist: PriceCategory[] = [
+export const defaultPricelist: PricelistCategory[] = [
   {
-    id: "iphone",
     name: "iPhone",
-    description: "Servis layar, baterai, kamera, dan lainnya.",
-    models: makeModels(
-      ["iPhone 16 Pro Max", "iPhone 16 Pro", "iPhone 16", "iPhone 15 Pro Max", "iPhone 15 Pro", "iPhone 15", "iPhone 14 Pro Max", "iPhone 14 Pro", "iPhone 14", "iPhone 13 Pro Max", "iPhone 13 Pro", "iPhone 13", "iPhone 12 Series", "iPhone 11 Series", "iPhone X Series", "iPhone 8 Series"],
-      ["Ganti layar", "Ganti baterai", "Ganti kamera", "Perbaikan charging", "Perbaikan speaker", "Perbaikan software"],
-    ),
+    services: [
+      {
+        name: "Ganti LCD / Layar",
+        rows: [
+          { model: "Layar iPhone (OEM)", quality: QUALITY_DEFAULT, price: "Rp 850.000" },
+          { model: "Layar iPhone (Original)", quality: QUALITY_DEFAULT, price: "Rp 1.500.000" },
+        ],
+      },
+      {
+        name: "Ganti Baterai",
+        rows: [
+          { model: "Baterai iPhone (OEM)", quality: QUALITY_DEFAULT, price: "Rp 350.000" },
+          { model: "Baterai iPhone (Original)", quality: QUALITY_DEFAULT, price: "Rp 650.000" },
+        ],
+      },
+      {
+        name: "Servis Lainnya",
+        rows: [
+          { model: "Kamera Belakang", quality: QUALITY_DEFAULT, price: "Rp 750.000" },
+          { model: "Kamera Depan", quality: QUALITY_DEFAULT, price: "Rp 450.000" },
+          { model: "Charging Port", quality: QUALITY_DEFAULT, price: "Rp 400.000" },
+          { model: "Backglass / Casing Belakang", quality: QUALITY_DEFAULT, price: "Rp 550.000" },
+          { model: "Speaker / Ear Speaker", quality: QUALITY_DEFAULT, price: "Rp 300.000" },
+          { model: "Tombol Home / Power", quality: QUALITY_DEFAULT, price: "Rp 250.000" },
+        ],
+      },
+    ],
   },
-  {
-    id: "watch",
-    name: "Apple Watch",
-    description: "Pemeriksaan dan perbaikan Apple Watch.",
-    models: makeModels(
-      ["Apple Watch Ultra 2", "Apple Watch Ultra", "Apple Watch Series 10", "Apple Watch Series 9", "Apple Watch Series 8", "Apple Watch Series 7", "Apple Watch SE (Gen 2)", "Apple Watch SE"],
-      ["Ganti layar", "Ganti baterai", "Perbaikan crown / tombol", "Pemeriksaan unit"],
-    ),
-  },
-  {
-    id: "ipad",
-    name: "iPad",
-    description: "Servis iPad untuk kebutuhan kerja dan harian.",
-    models: makeModels(
-      ["iPad Pro 13-inch (M4)", "iPad Pro 11-inch (M4)", "iPad Pro 12.9-inch", "iPad Pro 11-inch", "iPad Air 13-inch", "iPad Air 11-inch", "iPad Air", "iPad mini", "iPad"],
-      ["Ganti layar / LCD", "Ganti baterai", "Perbaikan charging", "Perbaikan kamera", "Perbaikan software"],
-    ),
-  },
-  {
-    id: "macbook",
-    name: "MacBook",
-    description: "Pemeriksaan dan servis MacBook.",
-    models: makeModels(
-      ["MacBook Pro 16-inch (Apple silicon)", "MacBook Pro 14-inch (Apple silicon)", "MacBook Pro 13-inch", "MacBook Air 15-inch", "MacBook Air 13-inch", "MacBook Air (Intel)"],
-      ["Ganti layar", "Ganti baterai", "Perbaikan keyboard", "Perbaikan logic board", "Pembersihan dan perawatan", "Instal ulang macOS"],
-    ),
-  },
+  ...(["Apple Watch", "iPad", "MacBook"] as const).map((name) => ({
+    name,
+    services: ["Ganti LCD / Layar", "Ganti Baterai", "Servis Lainnya"].map((svc) => ({
+      name: svc,
+      rows: [] as PricelistRow[],
+    })),
+  })),
 ];
