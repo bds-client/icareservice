@@ -1,5 +1,6 @@
 import type { Testimonial } from "./testimonials";
 import { defaultImages, type ImagesContent } from "./image-refs";
+import { defaultPricelist, type PricelistCategory } from "./pricelist";
 
 export interface GeneralContent {
   waNumber: string;
@@ -85,6 +86,7 @@ export interface SiteContent {
   cta: CtaContent;
   testimonials: Testimonial[];
   images: ImagesContent;
+  pricelist: PricelistCategory[];
 }
 
 export type ContentKey = keyof SiteContent;
@@ -92,6 +94,7 @@ export type ContentKey = keyof SiteContent;
 export const defaultContent: SiteContent = {
   testimonials: [],
   images: defaultImages,
+  pricelist: defaultPricelist,
   general: {
     waNumber: "6289614888888",
     waDisplay: "0896-1488-8888",

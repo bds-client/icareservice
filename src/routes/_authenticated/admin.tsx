@@ -24,6 +24,7 @@ import { Switch } from "@/components/ui/switch";
 import { GalleryAdmin } from "@/components/GalleryAdmin";
 import { ImagesAdmin } from "@/components/ImagesAdmin";
 import { TestimonialsAdmin } from "@/components/TestimonialsAdmin";
+import { PricelistAdmin } from "@/components/PricelistAdmin";
 import { galleryQuery } from "@/lib/gallery";
 
 export const Route = createFileRoute("/_authenticated/admin")({
@@ -417,6 +418,7 @@ function Admin() {
             <TabsTrigger value="tentang">Tentang</TabsTrigger>
             <TabsTrigger value="layanan">Layanan</TabsTrigger>
             <TabsTrigger value="harga">Harga</TabsTrigger>
+            <TabsTrigger value="pricelist">Pricelist</TabsTrigger>
             <TabsTrigger value="cabang">Cabang</TabsTrigger>
             <TabsTrigger value="galeri">Galeri</TabsTrigger>
             <TabsTrigger value="foto">Foto</TabsTrigger>
@@ -445,6 +447,9 @@ function Admin() {
             </TabsContent>
             <TabsContent value="harga">
               <FeesForm content={content} save={save} />
+            </TabsContent>
+            <TabsContent value="pricelist">
+              <PricelistAdmin content={content} save={save} />
             </TabsContent>
             <TabsContent value="cabang">
               <BranchesForm content={content} save={save} />

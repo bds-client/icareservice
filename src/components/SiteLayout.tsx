@@ -8,6 +8,7 @@ const nav = [
   { to: "/", label: "Beranda" },
   { to: "/tentang-icare", label: "Tentang" },
   { to: "/layanan", label: "Layanan" },
+  { to: "/pricelist", label: "Pricelist" },
   { to: "/review", label: "Review" },
   { to: "/galeri", label: "Galeri" },
   { to: "/lokasi-kontak", label: "Lokasi" },
