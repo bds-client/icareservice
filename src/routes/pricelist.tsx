@@ -1,121 +1,104 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowUpRight } from "lucide-react";
 import { PageHero, SiteLayout } from "@/components/SiteLayout";
 import { CtaBand } from "@/components/Sections";
 import { useSiteContent } from "@/lib/content-context";
-import { waLink } from "@/lib/content";
+
+const priceTiers = [
+  { id: "12", heading: "Garansi", duration: "12 Bulan", quality: "Kualitas FHD" },
+  { id: "18", heading: "Garansi", duration: "18 Bulan", quality: "Kualitas OLED" },
+  { id: "36", heading: "Garansi", duration: "36 Bulan", quality: "Original" },
+] as const;
 
 export const Route = createFileRoute("/pricelist")({
   head: () => ({
     meta: [
-      { title: "Pricelist Servis iPhone, Apple Watch, iPad & MacBook | iCare Service Denpasar" },
-      { name: "description", content: "Daftar harga servis iPhone, Apple Watch, iPad, dan MacBook di iCare Service Denpasar. Pilih perangkat dan jenis servis untuk melihat harga, garansi, dan kualitas sparepart." },
-      { property: "og:title", content: "Pricelist Servis | iCare Service Denpasar" },
-      { property: "og:description", content: "Harga servis transparan untuk iPhone, Apple Watch, iPad, dan MacBook di Denpasar." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { title: "Pricelist LCD & Baterai iPhone | iCare Service Denpasar" },
+      { name: "description", content: "Lihat harga servis LCD dan baterai iPhone berdasarkan model dan pilihan kualitas garansi." },
     ],
   }),
   component: Pricelist,
 });
 
 function Pricelist() {
-  const { pricelist, general } = useSiteContent();
-  const [catIdx, setCatIdx] = useState(0);
-  const [svcIdx, setSvcIdx] = useState(0);
-  const cat = pricelist[catIdx] ?? pricelist[0];
-  const svc = cat?.services[svcIdx] ?? cat?.services[0];
-  const rows = svc?.rows ?? [];
-  const askPrice = (
-    <a href={waLink(general)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-semibold text-primary hover:underline">
-      Hubungi untuk harga <ArrowUpRight className="h-4 w-4" />
-    </a>
-  );
+  const { pricelist } = useSiteContent();
+  const [selectedService, setSelectedService] = useState<string | null>(null);
+  const iphone = pricelist.find((category) => category.name.toLowerCase() === "iphone");
+  const service = iphone?.services.find((item) => item.name === selectedService);
+  const grouped = new Map<string, Record<string, string>>();
+
+  for (const row of service?.rows ?? []) {
+    const values = grouped.get(row.model) ?? {};
+    const tier = priceTiers.find((item) => row.quality.toLowerCase().includes(item.id));
+    if (tier) values[tier.id] = row.price || "-";
+    grouped.set(row.model, values);
+  }
 
   return (
     <SiteLayout>
-      <PageHero title="Pricelist" crumb="Pricelist" />
-      <section className="mx-auto max-w-5xl px-4 py-24">
-        <p className="mx-auto max-w-2xl text-center text-muted-foreground">
-          Pilih kategori perangkat, lalu pilih jenis servis untuk melihat daftar harga. Harga final dikonfirmasi sebelum pengerjaan dimulai.
-        </p>
-
-        <div className="mt-10">
-          <p className="font-display text-sm font-semibold uppercase tracking-wide text-muted-foreground">1. Pilih Perangkat</p>
-          <div className="mt-3 flex flex-wrap gap-3">
-            {pricelist.map((c, i) => (
-              <button
-                key={c.name}
-                type="button"
-                onClick={() => { setCatIdx(i); setSvcIdx(0); }}
-                className={`rounded-full border-2 px-6 py-2.5 font-semibold transition ${
-                  i === catIdx ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background hover:border-primary"
-                }`}
-              >
-                {c.name}
-              </button>
-            ))}
-          </div>
+      <PageHero title="Pricelist Servis iPhone" crumb="Pricelist" />
+      <section className="mx-auto max-w-7xl px-4 py-12 md:py-16">
+        <div className="mx-auto mb-8 max-w-2xl text-center">
+          <h2 className="font-display text-3xl font-bold text-[#3b2418] md:text-4xl">Pilih Jenis Service</h2>
+          <p className="mt-3 text-[#604b3c]">Pilih LCD atau baterai untuk melihat harga berdasarkan model dan kualitas sparepart.</p>
         </div>
 
-        {cat && (
-          <div className="mt-8">
-            <p className="font-display text-sm font-semibold uppercase tracking-wide text-muted-foreground">2. Pilih Jenis Servis</p>
-            <div className="mt-3 flex flex-wrap gap-3">
-              {cat.services.map((s, i) => (
-                <button
-                  key={s.name}
-                  type="button"
-                  onClick={() => setSvcIdx(i)}
-                  className={`rounded-full border-2 px-6 py-2.5 font-semibold transition ${
-                    i === svcIdx ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background hover:border-primary"
-                  }`}
-                >
-                  {s.name}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
+        <div className="mb-8 flex justify-center gap-3" role="group" aria-label="Pilih jenis service">
+          {["LCD", "Baterai"].map((name) => (
+            <button
+              key={name}
+              type="button"
+              onClick={() => setSelectedService(name)}
+              aria-pressed={selectedService === name}
+              className={
+                selectedService === name
+                  ? "rounded-full border-2 border-[#3b2418] bg-[#3b2418] px-7 py-3 font-bold text-[#f2ecdf]"
+                  : "rounded-full border-2 border-[#3b2418] bg-transparent px-7 py-3 font-bold text-[#3b2418] hover:bg-[#e5dccb]"
+              }
+            >
+              {name}
+            </button>
+          ))}
+        </div>
 
-        {svc && (
-          <div className="mt-10 overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-            <div className="border-b border-border bg-ink px-6 py-4 text-ink-foreground">
-              <h2 className="font-display text-xl font-semibold">{cat?.name} — {svc.name}</h2>
-            </div>
-            <table className="w-full text-left text-sm">
-              <thead>
-                <tr className="border-b border-border bg-secondary font-display text-base">
-                  <th className="px-6 py-4 font-semibold">Model</th>
-                  <th className="px-6 py-4 font-semibold">Garansi / Kualitas</th>
-                  <th className="px-6 py-4 font-semibold">Harga</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
-                {rows.length === 0 ? (
-                  <tr>
-                    <td colSpan={3} className="px-6 py-8 text-center">{askPrice}</td>
+        {selectedService && (
+          <div className="overflow-hidden rounded-[1.5rem] border-[3px] border-[#3b2418] bg-[#f0ebdf] p-2 shadow-xl md:p-3">
+            <div className="overflow-x-auto rounded-[1rem]">
+              <table className="w-full min-w-[760px] border-separate border-spacing-y-1 text-left text-sm text-[#3b2418] md:text-base">
+                <thead>
+                  <tr className="bg-[#3b2418] text-[#f4eee2]">
+                    <th scope="col" className="rounded-l-xl px-4 py-4 font-bold md:px-5">Model iPhone</th>
+                    {priceTiers.map((tier) => (
+                      <th key={tier.id} scope="col" className="border-l border-[#d4c5ad]/70 px-3 py-3 text-center md:px-5">
+                        <span className="block font-semibold">{tier.heading}</span>
+                        <span className="block font-bold">{tier.duration}</span>
+                        <span className="block text-xs font-normal opacity-85">{tier.quality}</span>
+                      </th>
+                    ))}
                   </tr>
-                ) : (
-                  rows.map((r, i) => (
-                    <tr key={i} className="align-top">
-                      <td className="px-6 py-4 font-semibold">{r.model}</td>
-                      <td className="px-6 py-4 text-muted-foreground">{r.quality}</td>
-                      <td className="px-6 py-4 font-display text-base font-semibold text-primary">
-                        {r.price.trim() ? r.price : askPrice}
-                      </td>
+                </thead>
+                <tbody>
+                  {[...grouped.entries()].map(([model, prices]) => (
+                    <tr key={model}>
+                      <th scope="row" className="whitespace-nowrap px-4 py-2.5 font-bold md:px-5">{model}</th>
+                      {priceTiers.map((tier) => (
+                        <td key={tier.id} className="px-3 py-2.5 text-center md:px-5">
+                          <span className="inline-flex min-w-24 justify-center rounded-full border border-[#5a4030] px-4 py-1.5 font-bold">
+                            {prices[tier.id] || "-"}
+                          </span>
+                        </td>
+                      ))}
                     </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
+                  ))}
+                  {grouped.size === 0 && (
+                    <tr><td colSpan={4} className="px-5 py-8 text-center text-[#604b3c]">Harga akan segera tersedia.</td></tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+            <p className="px-3 pb-2 pt-4 text-xs text-[#604b3c]">Harga mengikuti pilihan kualitas dan garansi. Geser tabel ke samping pada layar kecil untuk melihat semua kolom.</p>
           </div>
         )}
-
-        <p className="mt-8 rounded-2xl bg-secondary p-6 text-sm text-muted-foreground">
-          Harga di atas adalah estimasi awal dan dapat berbeda tergantung tipe perangkat serta kualitas sparepart yang Anda pilih. Diagnosis, harga final, ketersediaan sparepart, dan garansi akan dikonfirmasi oleh tim kami sebelum pengerjaan dimulai.
-        </p>
       </section>
       <CtaBand />
     </SiteLayout>
