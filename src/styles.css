@@ -39,29 +39,29 @@
 
 :root {
   --radius: 0.75rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.2 0.03 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2 0.03 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2 0.03 0);
-  --primary: oklch(0.15 0 0);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.965 0.005 0);
-  --secondary-foreground: oklch(0.2 0.03 0);
-  --muted: oklch(0.965 0.005 0);
-  --muted-foreground: oklch(0.5 0.02 0);
-  --accent: oklch(0.955 0 0);
-  --accent-foreground: oklch(0.35 0 0);
+  --background: #f2eee4;
+  --foreground: #372316;
+  --card: #faf7ef;
+  --card-foreground: #372316;
+  --popover: #faf7ef;
+  --popover-foreground: #372316;
+  --primary: #3b2418;
+  --primary-foreground: #f4eee2;
+  --secondary: #e9e2d6;
+  --secondary-foreground: #3b2418;
+  --muted: #ebe4d7;
+  --muted-foreground: #604b3c;
+  --accent: #e5dccb;
+  --accent-foreground: #3b2418;
   --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.92 0.006 0);
-  --input: oklch(0.92 0.006 0);
-  --ring: oklch(0.15 0 0);
-  --ink: oklch(0.18 0.025 0);
-  --ink-foreground: oklch(0.98 0 0);
-  --whatsapp: oklch(0.68 0.17 150);
-  --hero-overlay: linear-gradient(90deg, oklch(0.1 0 0 / 0.88), oklch(0.1 0 0 / 0.45));
+  --destructive-foreground: #fffaf1;
+  --border: #d4c5ad;
+  --input: #d4c5ad;
+  --ring: #8b6b50;
+  --ink: #3b2418;
+  --ink-foreground: #f4eee2;
+  --whatsapp: #3b2418;
+  --hero-overlay: linear-gradient(90deg, rgb(35 21 13 / 0.88), rgb(35 21 13 / 0.45));
 }
 
 @layer base {
@@ -76,7 +76,7 @@
 
 @utility bg-hero-overlay { background: var(--hero-overlay); }
 @utility glass {
-  background: oklch(1 0 0 / 0.12);
+  background: rgb(244 238 226 / 0.14);
   backdrop-filter: blur(14px);
-  border: 1px solid oklch(1 0 0 / 0.2);
+  border: 1px solid rgb(244 238 226 / 0.24);
 }
