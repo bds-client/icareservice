@@ -39,29 +39,29 @@
 
 :root {
   --radius: 0.75rem;
-  --background: #f2eee4;
-  --foreground: #372316;
-  --card: #faf7ef;
-  --card-foreground: #372316;
-  --popover: #faf7ef;
-  --popover-foreground: #372316;
-  --primary: #3b2418;
-  --primary-foreground: #f4eee2;
-  --secondary: #e9e2d6;
-  --secondary-foreground: #3b2418;
-  --muted: #ebe4d7;
-  --muted-foreground: #604b3c;
-  --accent: #e5dccb;
-  --accent-foreground: #3b2418;
+  --background: #ffffff;
+  --foreground: #111111;
+  --card: #ffffff;
+  --card-foreground: #111111;
+  --popover: #ffffff;
+  --popover-foreground: #111111;
+  --primary: #111111;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f4f4;
+  --secondary-foreground: #111111;
+  --muted: #f4f4f4;
+  --muted-foreground: #666666;
+  --accent: #eaeaea;
+  --accent-foreground: #111111;
   --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: #fffaf1;
-  --border: #d4c5ad;
-  --input: #d4c5ad;
-  --ring: #8b6b50;
-  --ink: #3b2418;
-  --ink-foreground: #f4eee2;
-  --whatsapp: #3b2418;
-  --hero-overlay: linear-gradient(90deg, rgb(35 21 13 / 0.88), rgb(35 21 13 / 0.45));
+  --destructive-foreground: #ffffff;
+  --border: #d4d4d4;
+  --input: #d4d4d4;
+  --ring: #666666;
+  --ink: #111111;
+  --ink-foreground: #ffffff;
+  --whatsapp: #111111;
+  --hero-overlay: linear-gradient(90deg, rgb(0 0 0 / 0.88), rgb(0 0 0 / 0.45));
 }
 
 @layer base {
@@ -76,7 +76,7 @@
 
 @utility bg-hero-overlay { background: var(--hero-overlay); }
 @utility glass {
-  background: rgb(244 238 226 / 0.14);
+  background: rgb(255 255 255 / 0.14);
   backdrop-filter: blur(14px);
-  border: 1px solid rgb(244 238 226 / 0.24);
+  border: 1px solid rgb(255 255 255 / 0.24);
 }
