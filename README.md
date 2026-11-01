@@ -1,14 +1,6 @@
 # Icareservice
 
-buat website dari prd dengan design seperti ini https://kits.mokotheme.top/hubfix/?storefront=envato-elements
 
-This project was built with [Lovable](https://lovable.dev).
-
-**Live app**: https://icareservice.lovable.app
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/9e1d1092-0ea7-476c-b60c-71558ebff29d).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
 - **Stay in sync**: every change made in Lovable is committed straight to this repository.
